@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import BudgetReports from "./_components/budget-report";
 
 const BudgetManagement = () => {
   return (
-    <div>BudgetManagement</div>
-  )
-}
+    <div>
+      <BudgetReports />
+    </div>
+  );
+};
 
-export default BudgetManagement
+export default BudgetManagement;
