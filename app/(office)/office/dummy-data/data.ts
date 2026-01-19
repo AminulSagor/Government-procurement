@@ -38,3 +38,36 @@ export const activityItems: ActivityItem[] = [
     timeAgo: "১ দিন আগে",
   },
 ];
+
+//========= cart dummy data ==========//
+export type CartItem = {
+  id: string;
+  icon: "paper" | "file" | "printer";
+  title: string;
+  meta: string; // e.g. "পরিমাণ: ২ রিম"
+  price: number;
+};
+
+export const initialItems: CartItem[] = [
+  {
+    id: "1",
+    icon: "paper",
+    title: "সাদা কাগজ (A4)",
+    meta: "পরিমাণ: ২ রিম",
+    price: 520,
+  },
+  {
+    id: "2",
+    icon: "file",
+    title: "প্লাস্টিক ফাইল",
+    meta: "পরিমাণ: ১০ টি",
+    price: 120,
+  },
+  {
+    id: "3",
+    icon: "printer",
+    title: "অফিস চেয়ার",
+    meta: "পরিমাণ: ১ টি",
+    price: 15000,
+  },
+];

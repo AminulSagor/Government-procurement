@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Bell, ShoppingCart } from "lucide-react";
 import Logo from "@/components/main-logo";
+import CartDrawer from "@/app/(office)/office/_components/cart";
 
 type NavItem = { label: string; href: string };
 
@@ -19,9 +20,15 @@ const navItems: NavItem[] = [
 
 export default function Navbar() {
   const pathname = usePathname();
+  const [open, setOpen] = React.useState<boolean>(false);
 
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
+
+  //handle shopping cart click
+  const handleCart = () => {
+    setOpen(true);
+  };
 
   return (
     <div className="w-full bg-[#1F6E7F] text-white py-1">
@@ -50,9 +57,11 @@ export default function Navbar() {
         </nav>
 
         <div className="items-center gap-3 flex">
+          {/* cart  */}
           <button
             type="button"
-            className="h-9 w-9 rounded-lg bg-white/10 hover:bg-white/15 flex items-center justify-center"
+            className="h-9 w-9 rounded-lg bg-white/10 hover:bg-white/15 flex items-center justify-center cursor-pointer"
+            onClick={handleCart}
           >
             <ShoppingCart className="h-5 w-5" />
           </button>
@@ -91,6 +100,8 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+      {/* cart management */}
+      <CartDrawer open={open} setOpen={setOpen} />
     </div>
   );
 }
