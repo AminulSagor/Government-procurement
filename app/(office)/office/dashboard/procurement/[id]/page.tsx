@@ -20,6 +20,7 @@ import {
   Plus,
   ClipboardList,
   CheckCircle2,
+  CircleArrowLeft,
 } from "lucide-react";
 
 import Card from "@/components/cards/card";
@@ -33,6 +34,7 @@ import {
 } from "@/app/(office)/office/dummy-data/data";
 import { useParams } from "next/navigation";
 import AddNewItemDialog from "@/app/(office)/office/dashboard/procurement/[id]/add-new-item-dialog";
+import Link from "next/link";
 
 const iconMap: Record<ProcurementHead["iconKey"], React.ReactNode> = {
   stationery: <FileText className="h-5 w-5 text-primary-color" />,
@@ -173,7 +175,7 @@ export default function ProcurementDetailsPage() {
 
   return (
     <div>
-      <div className=" w-full">
+      <div className="w-full space-y-5">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-light-gray">
           <Home className="h-4 w-4 text-primary-color" />
@@ -188,20 +190,19 @@ export default function ProcurementDetailsPage() {
 
         {/* Title row */}
         <div className="mt-4 flex items-start justify-between gap-4">
-          <div className="flex items-start gap-3">
-            <button
-              type="button"
-              className="mt-1 flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm"
-              onClick={() => window.history.back()}
-              aria-label="Back"
-            >
-              <ChevronLeft className="h-5 w-5 text-primary-color" />
-            </button>
-
-            <div>
+          <div className="">
+            <div className="flex gap-4">
+              <button>
+                <Link href={"/office/dashboard/procurement"}>
+                  <CircleArrowLeft className="h-6 w-6 text-primary-color" />
+                </Link>
+              </button>
               <h1 className="text-2xl font-bold text-black">
                 নতুন ক্রয়াদেশ তৈরি করুন
               </h1>
+            </div>
+
+            <div>
               <p className="mt-1 text-sm text-light-gray">
                 বাজেট কোড ({head.code}) অনুযায়ী প্রয়োজনীয় পণ্য যুক্ত করুন এবং
                 ক্রয়ের জন্য চাহিদাপত্র প্রস্তুত করুন।
@@ -537,13 +538,6 @@ export default function ProcurementDetailsPage() {
                 }}
               />
             </Card>
-          </div>
-        </div>
-
-        {/* Floating avatar (optional like screenshot) */}
-        <div className="fixed bottom-6 left-6">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary-color text-white shadow">
-            M
           </div>
         </div>
       </div>
