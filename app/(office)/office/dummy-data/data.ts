@@ -71,3 +71,149 @@ export const initialItems: CartItem[] = [
     price: 15000,
   },
 ];
+
+//========= procurement dummy data ==========//
+export type ProcurementHead = {
+  id: string;
+  code: string;
+  titleBn: string;
+  titleEn: string;
+  balance: number;
+  isAvailable: boolean;
+  iconKey:
+    | "stationery"
+    | "computer"
+    | "furniture"
+    | "printing"
+    | "cleaning"
+    | "vehicle"
+    | "electrical"
+    | "medical";
+};
+
+export const procurementHeads: ProcurementHead[] = [
+  {
+    id: "1",
+    code: "০২৫০৫০৫",
+    titleBn: "অন্যান্য মনিহার",
+    titleEn: "Other Stationery",
+    balance: 5000,
+    isAvailable: true,
+    iconKey: "stationery",
+  },
+  {
+    id: "2",
+    code: "০২৫০৫০১",
+    titleBn: "কম্পিউটার সামগ্রী",
+    titleEn: "Computer Consumables",
+    balance: 12600,
+    isAvailable: true,
+    iconKey: "computer",
+  },
+  {
+    id: "3",
+    code: "০৪১০১০৮",
+    titleBn: "আসবাবপত্র",
+    titleEn: "Furniture",
+    balance: 0,
+    isAvailable: false,
+    iconKey: "furniture",
+  },
+  {
+    id: "4",
+    code: "০২৫০৫০২",
+    titleBn: "ছাপা ও বাঁধাই",
+    titleEn: "Printing & Binding",
+    balance: 8760,
+    isAvailable: true,
+    iconKey: "printing",
+  },
+  {
+    id: "5",
+    code: "০২৫০৫০৩",
+    titleBn: "পরিষ্কার পরিচ্ছন্নতা সামগ্রী",
+    titleEn: "Cleaning Supplies",
+    balance: 10200,
+    isAvailable: true,
+    iconKey: "cleaning",
+  },
+  {
+    id: "6",
+    code: "০৪১০১০৬",
+    titleBn: "মোটরযান খুচরা যন্ত্রাংশ",
+    titleEn: "Motor Vehicle Spares",
+    balance: 0,
+    isAvailable: false,
+    iconKey: "vehicle",
+  },
+  {
+    id: "7",
+    code: "০২৫০৫০৪",
+    titleBn: "বৈদ্যুতিক সরঞ্জাম",
+    titleEn: "Electrical Goods",
+    balance: 21800,
+    isAvailable: true,
+    iconKey: "electrical",
+  },
+  {
+    id: "8",
+    code: "০২৫০৫০৮",
+    titleBn: "ঔষধ ও শল্য চিকিৎসা",
+    titleEn: "Medical Supplies",
+    balance: 50000,
+    isAvailable: true,
+    iconKey: "medical",
+  },
+];
+
+//========= procurement product & requisition draft dummy data ==========//
+export type ProcurementProduct = {
+  id: string;
+  headId: string;
+  code: string;
+  name: string;
+  unitPrice: number;
+};
+
+export type RequisitionDraft = {
+  id: string;
+  headId: string;
+  vatRate: number;
+  method: "DPM" | "OTM" | "RFQ";
+  budgetTotal: number;
+  remainingBudget: number;
+  items: { productId: string; qty: number }[];
+};
+
+export const procurementProducts: ProcurementProduct[] = [
+  {
+    id: "p1",
+    headId: "2",
+    code: "10255",
+    name: "A4 Paper (Double A, 80GSM)",
+    unitPrice: 500,
+  },
+  {
+    id: "p2",
+    headId: "2",
+    code: "22019",
+    name: "Plastic File Folder (L-Shape)",
+    unitPrice: 40,
+  },
+  // add more later...
+];
+
+export const requisitionDrafts: RequisitionDraft[] = [
+  {
+    id: "REQ-2023-0892",
+    headId: "2",
+    vatRate: 0.05,
+    method: "DPM",
+    budgetTotal: 2000,
+    remainingBudget: 1560,
+    items: [
+      { productId: "p1", qty: 2 }, // 2 x 500 = 1000
+      { productId: "p2", qty: 5 }, // 5 x 40  = 200
+    ],
+  },
+];
