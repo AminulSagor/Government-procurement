@@ -56,15 +56,6 @@ export default function BudgetReports() {
           </div>
         ),
       },
-      {
-        title: "জমা হয়েছে",
-        value: submitted,
-        icon: (
-          <div className="grid h-10 w-10 place-items-center rounded-xl bg-blue-50 text-blue-700">
-            <Send className="h-5 w-5" />
-          </div>
-        ),
-      },
     ];
   }, []);
 
@@ -73,7 +64,7 @@ export default function BudgetReports() {
       <div>
         <PageHeader />
 
-        <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
+        <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
           {stats.map((s) => (
             <StatCard key={s.title} item={s} />
           ))}
@@ -86,7 +77,7 @@ export default function BudgetReports() {
                 রিপোর্ট তালিকা
               </CardTitle>
 
-              <Button className="w-full md:w-auto">
+              <Button variant={"primary"} className="w-full md:w-auto">
                 <Plus className="mr-2 h-4 w-4" />
                 নতুন রিপোর্ট তৈরি করুন
               </Button>

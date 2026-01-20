@@ -1,4 +1,11 @@
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { formatBDT } from "./lib";
 import { FileText } from "lucide-react";
 import StatusBadge from "./status-badge";
@@ -9,11 +16,11 @@ export default function ReportsTable({ rows }: { rows: ReportRow[] }) {
     <div className="overflow-hidden rounded-lg border">
       <Table>
         <TableHeader>
-          <TableRow className="bg-muted/50">
+          <TableRow className="bg-muted/50 [&_th]:font-semibold">
             <TableHead className="w-[180px]">রিপোর্ট আইডি</TableHead>
             <TableHead>অর্থবছর</TableHead>
             <TableHead>অফিস কোড</TableHead>
-            <TableHead className="text-right">মোট বাজেট</TableHead>
+            <TableHead className="">মোট বাজেট</TableHead>
             <TableHead className="w-[90px]">পিডিএফ</TableHead>
             <TableHead className="w-[120px]">স্ট্যাটাস</TableHead>
             <TableHead className="w-[140px] text-right">অ্যাকশন</TableHead>
@@ -40,9 +47,7 @@ export default function ReportsTable({ rows }: { rows: ReportRow[] }) {
                 </TableCell>
                 <TableCell>{r.fiscalYear}</TableCell>
                 <TableCell>{r.officeCode}</TableCell>
-                <TableCell className="text-right">
-                  {formatBDT(r.totalBudget)}
-                </TableCell>
+                <TableCell className="">{formatBDT(r.totalBudget)}</TableCell>
                 <TableCell>
                   {r.hasPdf ? (
                     <div className="inline-flex items-center gap-2 text-muted-foreground">
