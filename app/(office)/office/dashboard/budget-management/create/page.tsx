@@ -1,5 +1,5 @@
 import React from "react";
-import BudgetReportWizard from "./_component/comp";
+import BudgetReportWizard from "./_component/budget-report";
 
 const page = () => {
   return (

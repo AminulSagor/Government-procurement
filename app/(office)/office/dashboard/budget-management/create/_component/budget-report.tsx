@@ -32,6 +32,7 @@ import {
   Plus,
   X,
 } from "lucide-react";
+import BudgetTableComponent from "./budget_depricated";
 
 /* ----------------------------- types ----------------------------- */
 type StepKey = "upload" | "code" | "budget" | "review";

@@ -13,6 +13,7 @@ import ReportsTable from "./report-table";
 import ReportsCards from "./reports-cards";
 import StatCard from "./stat-card";
 import Toolbar from "./toolbar";
+import Link from "next/link";
 
 export default function BudgetReports() {
   const [q, setQ] = React.useState("");
@@ -77,9 +78,13 @@ export default function BudgetReports() {
                 রিপোর্ট তালিকা
               </CardTitle>
 
-              <Button variant={"primary"} className="w-full md:w-auto">
-                <Plus className="mr-2 h-4 w-4" />
-                নতুন রিপোর্ট তৈরি করুন
+              <Button variant={"primary"} className="w-full md:w-auto" asChild>
+                <Link href={"/office/dashboard/budget-management/create"}>
+                  <span className="flex items-center">
+                    <Plus className="mr-2 h-4 w-4" />
+                    নতুন রিপোর্ট তৈরি করুন
+                  </span>
+                </Link>
               </Button>
             </div>
 
