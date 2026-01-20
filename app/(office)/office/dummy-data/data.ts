@@ -1,3 +1,5 @@
+import { OrderStepKey } from "@/app/(office)/office/_components/order-stepper";
+
 export type ActivityType = "success" | "info" | "warning" | "neutral";
 
 export type ActivityItem = {
@@ -215,5 +217,147 @@ export const requisitionDrafts: RequisitionDraft[] = [
       { productId: "p1", qty: 2 }, // 2 x 500 = 1000
       { productId: "p2", qty: 5 }, // 5 x 40  = 200
     ],
+  },
+];
+
+//================== orders page orders data=================//
+export type OrderListStatus =
+  | "pending_quote"
+  | "active"
+  | "shipped"
+  | "previous"
+  | "draft";
+
+export type OrderListItem = {
+  id: string;
+  ref: string; // #ORD-4921
+  title: string;
+  status: OrderListStatus;
+
+  // small badge like Active / Shipped / Waiting for Quotes
+  badgeLabel: string;
+
+  // left small info lines
+  meta1?: string;
+  meta2?: string;
+
+  // stepper current key for ORD items
+  stepCurrent?: OrderStepKey;
+
+  // for req card (avatar summary)
+  peopleCount?: number;
+};
+
+export const orders: OrderListItem[] = [
+  {
+    id: "1",
+    ref: "#ORD-4921",
+    title: "Office Laptops (Dell Latitude 5000)",
+    status: "active",
+    badgeLabel: "Active",
+    meta1: "Vendor: TechSolutions Ltd.",
+    meta2: "Date: Oct 24, 2023",
+    stepCurrent: "processing",
+  },
+  {
+    id: "2",
+    ref: "#ORD-4918",
+    title: "Stationery Supplies Batch A",
+    status: "shipped",
+    badgeLabel: "Shipped",
+    meta1: "Courier: Sundarban Courier",
+    meta2: "Tracking: SD-882190",
+    stepCurrent: "in_transit",
+  },
+  {
+    id: "3",
+    ref: "#REQ-1102",
+    title: "Office Chairs (Ergonomic Mesh) - 50 Units",
+    status: "pending_quote",
+    badgeLabel: "Waiting for Quotes",
+    meta1: "Requested by: Admin Dept.",
+    meta2: "Due: Oct 30, 2023",
+    peopleCount: 4,
+  },
+  {
+    id: "4",
+    ref: "#DRF-1102",
+    title: "Office Chairs (Ergonomic Mesh) - 50 Units",
+    status: "draft",
+    badgeLabel: "খসড়া হিসাবে সংরক্ষিত",
+    meta1: "শেষ তারিখ: Due: Oct 30, 2023",
+    meta2: "২ টি আইটেম যোগ করা হয়েছে",
+  },
+];
+
+//================== orders page requirement summary & vendor quotes data=================//
+
+export type RequirementSummary = {
+  orderId: string; // orders[].id
+  reqRef: string; // #REQ-1102
+  title: string; // Swivel Chair
+  description: string;
+  qty: number;
+  unitBudget: number;
+  totalBudget: number;
+};
+
+export type VendorQuote = {
+  id: string;
+  orderId: string;
+  vendorName: string;
+  vendorInitial: string;
+  isVerified: boolean;
+  unitPrice: number;
+  totalPrice: number;
+  specsOk: boolean;
+  taxValid: boolean;
+};
+
+export const requirementSummaries: RequirementSummary[] = [
+  {
+    orderId: "3",
+    reqRef: "#REQ-1102",
+    title: "Swivel Chair",
+    description: "Standard executive chair, ergonomic mesh back.",
+    qty: 5,
+    unitBudget: 3000,
+    totalBudget: 15000,
+  },
+];
+
+export const vendorQuotes: VendorQuote[] = [
+  {
+    id: "q1",
+    orderId: "3",
+    vendorName: "M/s Karim Furniture",
+    vendorInitial: "K",
+    isVerified: true,
+    unitPrice: 2800,
+    totalPrice: 14000,
+    specsOk: true,
+    taxValid: true,
+  },
+  {
+    id: "q2",
+    orderId: "3",
+    vendorName: "HATIL",
+    vendorInitial: "H",
+    isVerified: true,
+    unitPrice: 3500,
+    totalPrice: 17500,
+    specsOk: true,
+    taxValid: true,
+  },
+  {
+    id: "q3",
+    orderId: "3",
+    vendorName: "Partex",
+    vendorInitial: "P",
+    isVerified: true,
+    unitPrice: 2950,
+    totalPrice: 14750,
+    specsOk: true,
+    taxValid: true,
   },
 ];
