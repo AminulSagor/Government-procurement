@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Printer, CheckSquare } from "lucide-react";
+import { ArrowLeft, Printer, CheckSquare, CircleArrowLeft } from "lucide-react";
 import Card from "@/components/cards/card";
 
 type Props = {
@@ -30,16 +30,11 @@ export default function ActiveOrderHeader({
   const router = useRouter();
 
   return (
-    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       {/* left */}
       <div className="flex items-start gap-3">
-        <button
-          type="button"
-          onClick={() => router.back()}
-          className="mt-0.5 flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm border border-off-white"
-          aria-label="Back"
-        >
-          <ArrowLeft className="h-5 w-5 text-primary-color" />
+        <button>
+          <CircleArrowLeft />
         </button>
 
         <div>
