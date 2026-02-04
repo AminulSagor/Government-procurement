@@ -10,7 +10,6 @@ import ProductSearchResults from "./_components/product-search-results";
 import QuotationItemDetailedTable from "./_components/quotation-item-detailed-table";
 import QuotationLogisticsSubmit from "./_components/quotation-logistics-submit";
 import RfqSidePanel from "./_components/rfq-side-panel";
-import AttentionBanner from "./_components/attention-banner";
 
 export default function QuotationDetailsPage() {
   const [query, setQuery] = useState("");
@@ -28,7 +27,6 @@ export default function QuotationDetailsPage() {
 
       {/* RIGHT */}
       <div className="space-y-4 relative">
-        <AttentionBanner />
         <ProductSearchBar
           value={query}
           onChange={(v) => {

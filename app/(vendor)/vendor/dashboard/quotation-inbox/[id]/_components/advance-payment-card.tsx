@@ -4,6 +4,7 @@ import React from "react";
 import Card from "@/components/cards/card";
 import PrimaryButton from "@/components/buttons/primary-button";
 import { ImageIcon, Info, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 type Props = {
   required?: boolean; // yes/no
@@ -117,9 +118,11 @@ export default function AdvancePaymentCard({
       </div>
 
       {/* CTA */}
-      <PrimaryButton className="mt-5 w-full p-2 text-xs font-medium flex items-center justify-center gap-2">
-        অগ্রিম পেমেন্ট এর পরিমাণ নিশ্চিত করুন <ArrowRight size={18} />
-      </PrimaryButton>
+      <Link href="/vendor/dashboard/quotation-inbox/RFQ-2024-DHAKA-05/advance-payment">
+        <PrimaryButton className="mt-5 w-full p-2 text-xs font-medium flex items-center justify-center gap-2">
+          অগ্রিম পেমেন্ট এর পরিমাণ নিশ্চিত করুন <ArrowRight size={18} />
+        </PrimaryButton>
+      </Link>
     </Card>
   );
 }

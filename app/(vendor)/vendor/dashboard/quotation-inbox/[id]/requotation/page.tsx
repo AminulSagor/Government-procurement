@@ -1,6 +1,8 @@
 "use client";
 
 import AttentionBanner from "../_components/attention-banner";
+import RequotationForm from "../_components/requotation-form";
+import RequoteUpdateTerms from "../_components/requote-update-terms";
 import RfqSidePanel from "../_components/rfq-side-panel";
 
 
@@ -20,7 +22,8 @@ export default function RequotationPage() {
         />
 
         {/* SAME FORM, different mode */}
-        {/* <QuotationRightForm mode="requote" /> */}
+        <RequotationForm  />
+        <RequoteUpdateTerms  />
       </div>
     </div>
   );

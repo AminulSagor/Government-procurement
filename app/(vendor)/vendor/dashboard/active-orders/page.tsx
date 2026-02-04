@@ -1,11 +1,20 @@
-import React from 'react';
+"use client";
 
-const page = () => {
-    return (
-        <div>
-            <h1>Active Orders</h1>
-        </div>
-    );
-};
+import OrderList from "./_components/OrderList";
+import OrdersFilterBar from "./_components/OrdersFilterBar";
+import OrdersHeader from "./_components/OrdersHeader";
+import OrdersStatsRow from "./_components/OrdersStatsRow";
 
-export default page;
+
+export default function Page() {
+  return (
+    <div className="min-h-screen bg-secondary">
+      <div className="mx-auto max-w-7xl px-6 py-6 space-y-6">
+        <OrdersHeader />
+        <OrdersStatsRow />
+        <OrdersFilterBar />
+        <OrderList />
+      </div>
+    </div>
+  );
+}
