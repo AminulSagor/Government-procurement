@@ -1,11 +1,40 @@
 import Card from "@/components/cards/card";
-import { ClipboardList, Clock, Truck, RotateCcw } from "lucide-react";
+import {
+  ClipboardList,
+  Clock,
+  Truck,
+  RotateCcw,
+} from "lucide-react";
 
 const stats = [
-  { title: "নতুন অর্ডার", value: "৫", icon: ClipboardList },
-  { title: "পেমেন্ট পেন্ডিং", value: "২", icon: Clock },
-  { title: "শিপমেন্ট পেন্ডিং", value: "১", icon: Truck },
-  { title: "রিটার্ন", value: "৩", icon: RotateCcw },
+  {
+    title: "নতুন অর্ডার (New Order)",
+    value: "৫",
+    icon: ClipboardList,
+    iconBg: "bg-teal-50",
+    iconColor: "text-teal-600",
+  },
+  {
+    title: "শিপমেন্ট বাকি (Pending)",
+    value: "২",
+    icon: Truck,
+    iconBg: "bg-green-50",
+    iconColor: "text-green-600",
+  },
+  {
+    title: "পেমেন্ট পেন্ডিং (Pending)",
+    value: "১",
+    icon: Clock,
+    iconBg: "bg-amber-50",
+    iconColor: "text-amber-600",
+  },
+  {
+    title: "ফেরত অনুরোধ (Return)",
+    value: "৩",
+    icon: RotateCcw,
+    iconBg: "bg-red-50",
+    iconColor: "text-red-600",
+  },
 ];
 
 export default function OrdersStatsRow() {
@@ -14,14 +43,25 @@ export default function OrdersStatsRow() {
       {stats.map((s) => (
         <Card
           key={s.title}
-          className="rounded-2xl border border-gray/15 bg-white p-4"
+          className="rounded-2xl border border-gray/15 bg-white p-5"
         >
           <div className="flex items-center justify-between">
+            {/* left */}
             <div>
-              <p className="text-xs font-semibold text-gray/50">{s.title}</p>
-              <p className="mt-1 text-2xl font-extrabold text-gray">{s.value}</p>
+              <p className="text-sm font-semibold text-light-gray">
+                {s.title}
+              </p>
+              <p className="mt-3 text-3xl font-extrabold text-gray">
+                {s.value}
+              </p>
             </div>
-            <s.icon size={18} className="text-gray/40" />
+
+            {/* icon */}
+            <div
+              className={`flex h-10 w-10 items-center justify-center rounded-xl ${s.iconBg}`}
+            >
+              <s.icon size={18} className={s.iconColor} />
+            </div>
           </div>
         </Card>
       ))}

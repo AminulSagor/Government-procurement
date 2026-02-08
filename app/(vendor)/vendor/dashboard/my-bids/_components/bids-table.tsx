@@ -6,6 +6,7 @@ import StatusPill, { BidStatus } from "./status-pill";
 
 import { Eye, ListFilter, Clock3 } from "lucide-react";
 import Pagination from "./pagination";
+import Link from "next/link";
 
 type Row = {
   rfq: string;
@@ -128,9 +129,11 @@ export default function BidsTable() {
 
                 {/* action */}
                 <td className="px-5 py-4 text-right">
-                  <button className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:opacity-80">
+                  <Link href={`/vendor/dashboard/my-bids/${r.rfq.replace("#", "").toLowerCase()}`}>
+                  <button className="inline-flex items-center gap-2 text-sm cursor-pointer font-semibold text-primary hover:opacity-80">
                     বিস্তারিত <Eye size={16} className="text-primary/70" />
                   </button>
+                  </Link>
                 </td>
               </tr>
             ))}

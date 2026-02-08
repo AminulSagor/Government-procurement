@@ -1,11 +1,5 @@
-import React from 'react';
+import ProfileStatusPage from "./_components/profile-status-page";
 
-const page = () => {
-    return (
-        <div>
-            <h1>Account Settings</h1>
-        </div>
-    );
-};
-
-export default page;
+export default function Page() {
+  return <ProfileStatusPage />;
+}

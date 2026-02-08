@@ -1,11 +1,5 @@
-import React from 'react';
+import LiveActivityPage from "./_components/live-activity-page";
 
-const page = () => {
-    return (
-        <div>
-            <h1>Live Activity Feed</h1>
-        </div>
-    );
-};
-
-export default page;
+export default function Page() {
+  return <LiveActivityPage />;
+}

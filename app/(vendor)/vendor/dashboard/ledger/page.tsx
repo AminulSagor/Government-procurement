@@ -1,11 +1,5 @@
-import React from 'react';
+import PaymentLedgerPage from "./_components/payment-ledger-page";
 
-const page = () => {
-    return (
-        <div>
-            <h1>Finance & Payment Ledger</h1>
-        </div>
-    );
-};
-
-export default page;
+export default function Page() {
+  return <PaymentLedgerPage />;
+}

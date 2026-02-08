@@ -54,6 +54,8 @@
   --color-red: var(--red);
   --color-black: var(--black);
   --color-blue: var(--blue);
+  --color-purple: var(--purple);
+  --color-orange: var(--orange);
   --color-white: var(--white);
   --color-medium-gray: var(--medium-gray);
 }
@@ -70,6 +72,8 @@
   --red: #e73508;
   --black: #101819;
   --blue: #1d4ed8;
+  --purple: #7c3aed;
+  --orange: #ea580c;
 
   /*======= shad cn colors ===========*/
   --radius: 0.625rem;
