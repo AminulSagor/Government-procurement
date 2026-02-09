@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { X, Laptop, Mouse } from "lucide-react";
+import { Laptop, Mouse } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -63,6 +63,25 @@ const products: ProductDetails[] = [
       { label: "মোট মূল্য (১ টি)", regular: "৳ ১২,০০০", order: "৳ ১১,৫০০" },
     ],
   },
+  {
+    id: "p3",
+    icon: "laptop",
+    name: "ডেল ডকিং স্টেশন WDI19",
+    code: "০৩৫৯১০০",
+    category: "ডকিং স্টেশন",
+    specsTitle:
+      "ডেল কম্প্যাটিবল ডকিং স্টেশন, ১৮০ ওয়াট পাওয়ার অ্যাডাপ্টার সহ। ল্যাপটপে ১৩০ ওয়াট পর্যন্ত পাওয়ার ডেলিভারি করতে সক্ষম।",
+    bullets: [
+      "ইউএসবি-সি ৩.১ জেন ২ ইন্টারফেস",
+      "ডুয়াল ৪কে ডিসপ্লে অথবা ৩টি FHD ডিসপ্লে সাপোর্ট",
+      "গিগাবিট ইথারনেট, HDMI 2.0, এবং ডিসপ্লেপোর্ট 1.4",
+      "ভেসা মাউন্ট (VESA) সামঞ্জস্যপূর্ণ ডিজাইন",
+    ],
+    pricing: [
+      { label: "একক মূল্য", regular: "৳ ১২,০০০", order: "৳ ২০,০০০" },
+      { label: "মোট মূল্য (২ টি)", regular: "৳ ৪৪,০০০", order: "৳ ৪৮,০০০" },
+    ],
+  },
 ];
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
@@ -72,7 +91,7 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 function ProductIcon({ kind }: { kind: ProductDetails["icon"] }) {
   const Icon = kind === "laptop" ? Laptop : Mouse;
   return (
-    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray/5">
+    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary">
       <Icon size={18} className="text-light-gray" />
     </div>
   );
@@ -81,13 +100,13 @@ function ProductIcon({ kind }: { kind: ProductDetails["icon"] }) {
 function PriceTable({ rows }: { rows: OrderLine[] }) {
   return (
     <div className="overflow-hidden rounded-xl border border-gray/10">
-      <div className="grid grid-cols-[1fr_140px_140px] bg-gray/5 px-4 py-3">
+      <div className="grid grid-cols-[1fr_140px_140px] bg-secondary px-4 py-3">
         <p className="text-xs font-extrabold text-light-gray">বিবরণ</p>
         <p className="text-xs font-extrabold text-light-gray text-right">
           সাধারণ মূল্য
         </p>
         <p className="text-xs font-extrabold text-light-gray text-right">
-          অর্ডার মূল্য
+          ভেন্ডর মূল্য
         </p>
       </div>
 
@@ -110,6 +129,13 @@ function PriceTable({ rows }: { rows: OrderLine[] }) {
   );
 }
 
+/**
+ * ✅ Updated to match screenshot:
+ * - Sticky header + sticky footer
+ * - Scroll only the body
+ * - Same spacing and divider rhythm
+ * - Token colors only (no teal/amber/blue raw colors)
+ */
 export default function SubmittedProofDialog({
   open,
   onOpenChange,
@@ -120,18 +146,18 @@ export default function SubmittedProofDialog({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-[860px] rounded-2xl border border-gray/15 bg-white p-0">
-        {/* header */}
-        <div className="flex items-center justify-between gap-4 border-b border-gray/10 px-6 py-4">
+        {/* ✅ sticky header */}
+        <div className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-gray/10 bg-white px-6 py-4">
           <p className="text-base font-semibold text-gray">
             অর্ডারকৃত সকল পণ্যের বিস্তারিত তথ্য
           </p>
         </div>
 
-        {/* body (scroll) */}
-        <div className="max-h-[70vh] overflow-y-auto px-6 py-5">
-          <div className="space-y-6">
+        {/* ✅ body scroll (matches image) */}
+        <div className="max-h-[72vh] overflow-y-auto px-6 py-5">
+          <div className="space-y-8">
             {products.map((p, i) => (
-              <div key={p.id} className={cn(i !== 0 && "pt-2")}>
+              <div key={p.id}>
                 {/* product head */}
                 <div className="flex items-start gap-3">
                   <ProductIcon kind={p.icon} />
@@ -144,7 +170,7 @@ export default function SubmittedProofDialog({
                         কোড: {p.code}
                       </span>
 
-                      <span className="rounded-lg border border-gray/10 bg-gray/5 px-3 py-1 text-xs font-semibold text-light-gray">
+                      <span className="rounded-lg border border-gray/10 bg-secondary px-3 py-1 text-xs font-semibold text-light-gray">
                         ক্যাটাগরি: {p.category}
                       </span>
                     </div>
@@ -155,7 +181,7 @@ export default function SubmittedProofDialog({
                 <div className="mt-4">
                   <SectionTitle>প্রযুক্তিগত বৈশিষ্ট্য</SectionTitle>
 
-                  <div className="mt-2 rounded-xl border border-gray/10 bg-gray/5 p-4">
+                  <div className="mt-2 rounded-xl border border-gray/10 bg-secondary p-4">
                     <p className="text-sm font-semibold text-gray">
                       {p.specsTitle}
                     </p>
@@ -171,9 +197,9 @@ export default function SubmittedProofDialog({
                   </div>
                 </div>
 
-                {/* order details */}
+                {/* pricing */}
                 <div className="mt-5">
-                  <SectionTitle>অর্ডার বিবরণ</SectionTitle>
+                  <SectionTitle>আর্থিক বিবরণ</SectionTitle>
                   <div className="mt-2">
                     <PriceTable rows={p.pricing} />
                   </div>
@@ -181,16 +207,16 @@ export default function SubmittedProofDialog({
 
                 {/* divider */}
                 {i !== products.length - 1 && (
-                  <div className="mt-6 h-px w-full bg-gray/10" />
+                  <div className="mt-8 h-px w-full bg-gray/10" />
                 )}
               </div>
             ))}
           </div>
         </div>
 
-        {/* footer */}
-        <div className="flex items-center justify-end gap-2 border-t border-gray/10  px-6 py-4">
-          <Button className="bg-primary-color"  size="sm" onClick={() => onOpenChange(false)}>
+        {/* ✅ sticky footer */}
+        <div className="sticky bottom-0 z-10 flex items-center justify-end gap-2 border-t border-gray/10 bg-white px-6 py-4">
+          <Button size="sm" variant="primary" onClick={() => onOpenChange(false)}>
             বন্ধ করুন
           </Button>
         </div>
