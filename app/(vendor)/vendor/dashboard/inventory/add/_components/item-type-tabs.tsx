@@ -13,7 +13,6 @@ export default function ItemTypeTabs({
 }) {
   return (
     <div>
-      <p className="text-xs font-semibold text-gray">ITEM TYPE</p>
 
       <div className="mt-2 inline-flex rounded-lg border border-gray/15 bg-secondary p-1">
         <button
@@ -21,7 +20,7 @@ export default function ItemTypeTabs({
           onClick={() => onChange("product")}
           className={cn(
             "h-9 rounded-md px-4 text-xs font-semibold",
-            value === "product" ? "bg-primary text-white" : "text-gray hover:bg-white"
+            value === "product" ? "bg-primary-color text-white" : "text-gray hover:bg-white"
           )}
         >
           পণ্য (Product)

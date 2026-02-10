@@ -42,9 +42,9 @@ export default function PaymentLedgerPage() {
       {/* header row */}
       <div className="mt-3 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div>
-          <h1 className="text-3xl font-semibold text-light-gray">পেমেন্ট লেজার</h1>
+          <h1 className="text-3xl font-semibold text-black">পেমেন্ট লেজার</h1>
           <p className="mt-1 text-sm text-light-gray">
-            আপনার সমস্ত পেমেন্ট লেনদেনের ইতিহাস, স্ট্যাটাস এবং বিস্তারিত বিবরণ।
+            আপনার সমস্ত পেমেন্ট লেনদেনের ইতিহাস, স্ট্যাটাস এবং বিস্তারিত বিবরণ
           </p>
         </div>
 
@@ -148,7 +148,6 @@ export default function PaymentLedgerPage() {
           onSearchChange={(v) => setSearch(v)}
           showPerPage={showPerPage}
           onShowPerPageChange={(v) => setShowPerPage(v)}
-          onFilterClick={() => null}
         />
 
         <div className="mt-4">

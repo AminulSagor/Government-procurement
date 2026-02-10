@@ -3,7 +3,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 
-export default function LiveActivityToolbar({
+export function LiveActivityToolbar({
   searchValue,
   onSearchChange,
   typeValue,
@@ -15,10 +15,10 @@ export default function LiveActivityToolbar({
   onTypeChange: (v: string) => void;
 }) {
   return (
-    <div className="flex flex-wrap items-center gap-3">
-      {/* search */}
-      <div className="relative">
-        <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray">
+    <div className="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
+      {/* search (wide like screenshot) */}
+      <div className="relative w-full sm:w-[420px]">
+        <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-light-gray">
           <svg
             width="16"
             height="16"
@@ -37,17 +37,17 @@ export default function LiveActivityToolbar({
         <input
           value={searchValue}
           onChange={(e) => onSearchChange(e.target.value)}
-          placeholder="কাজের খুঁজুন..."
+          placeholder="কার্যক্রম খুঁজুন..."
           className={cn(
-            "h-10 w-[220px] rounded-lg border border-gray/15 bg-white pl-10 pr-3 text-sm text-gray outline-none",
-            "focus:border-primary"
+            "h-10 w-full rounded-xl border border-gray/15 bg-white pl-10 pr-3 text-sm text-gray outline-none",
+            "placeholder:text-light-gray focus:border-primary-color/30"
           )}
         />
       </div>
 
-      {/* type */}
-      <div className="relative">
-        <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray">
+      {/* type dropdown (same height + rounded like screenshot) */}
+      <div className="relative w-full sm:w-[210px]">
+        <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-light-gray">
           <svg
             width="16"
             height="16"
@@ -68,8 +68,8 @@ export default function LiveActivityToolbar({
           value={typeValue}
           onChange={(e) => onTypeChange(e.target.value)}
           className={cn(
-            "h-10 w-[170px] rounded-lg border border-gray/15 bg-white pl-10 pr-8 text-sm text-gray outline-none",
-            "focus:border-primary"
+            "h-10 w-full appearance-none rounded-xl border border-gray/15 bg-white pl-10 pr-9 text-sm text-gray outline-none",
+            "focus:border-primary-color/30"
           )}
         >
           <option value="All">Activity Type: All</option>
@@ -78,7 +78,7 @@ export default function LiveActivityToolbar({
           <option value="System">System</option>
         </select>
 
-        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray">
+        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-light-gray">
           <svg
             width="16"
             height="16"

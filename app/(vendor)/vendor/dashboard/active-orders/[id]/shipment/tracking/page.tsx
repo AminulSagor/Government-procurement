@@ -1,17 +1,14 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useParams, notFound } from "next/navigation";
 import Link from "next/link";
 
 import Card from "@/components/cards/card";
-
 import { cn } from "@/lib/utils";
 
 import OrderHeader from "../../_components/OrderHeader";
 import OrderStepper from "../../_components/OrderStepper";
-
-
 
 import {
   Truck,
@@ -19,10 +16,20 @@ import {
   MapPin,
   ClipboardList,
   Circle,
+  FileText,
+  AlertTriangle,
 } from "lucide-react";
-import { Order, ShipmentStatus, ShipmentTrackingStep } from "../../_types/order.types";
+
+import type {
+  Order,
+  ShipmentStatus,
+  ShipmentTrackingStep,
+} from "../../_types/order.types";
+
 import { orders } from "../../_data/orders";
 import { Button } from "@/components/ui/button";
+
+import RemainingPaymentRequestDialog from "./_components/remaining-payment-request-dialog";
 
 function money(n: number) {
   return `৳ ${n.toLocaleString("en-US")}`;
@@ -32,21 +39,45 @@ function statusLabelBn(status: ShipmentStatus) {
   if (status === "initiated") return "শিপমেন্ট শুরু (Initiated)";
   if (status === "picked_up") return "কুরিয়ার গৃহীত (Picked up)";
   if (status === "in_transit") return "পথে আছে (In Transit)";
-  if (status === "out_for_delivery") return "ডেলিভারির জন্য বেরিয়েছে (Out for Delivery)";
+  if (status === "out_for_delivery")
+    return "ডেলিভারির জন্য বেরিয়েছে (Out for Delivery)";
   return "পণ্য গ্রহণ করা হয়েছে (Received)";
 }
 
-const stepIndexMap: Record<ShipmentStatus, number> = {
-  initiated: 0,
-  picked_up: 1,
-  in_transit: 2,
-  out_for_delivery: 3,
-  received: 4,
+/** demo-only: return request (right top card) */
+type ReturnStatus = "under_verification" | "verified" | "rejected";
+
+type ReturnRequest = {
+  id: string; // e.g. RET-2025-08-020
+  reasonBn: string; // e.g. "ড্যামেজড (Damaged Product)"
+  status: ReturnStatus;
 };
+
+function returnStatusPill(status: ReturnStatus) {
+  if (status === "verified")
+    return (
+      <span className="inline-flex rounded-full bg-green/10 px-3 py-[6px] text-xs font-extrabold text-green">
+        ভেরিফাইড (Verified)
+      </span>
+    );
+  if (status === "rejected")
+    return (
+      <span className="inline-flex rounded-full bg-red/10 px-3 py-[6px] text-xs font-extrabold text-red">
+        বাতিল (Rejected)
+      </span>
+    );
+  return (
+    <span className="inline-flex rounded-full bg-amber/10 px-3 py-[6px] text-xs font-extrabold text-amber">
+      যাচাই চলছে (Under Verification)
+    </span>
+  );
+}
 
 export default function ShipmentTrackingPage() {
   const params = useParams<{ id: string }>();
   const id = decodeURIComponent(params?.id || "");
+
+  const [openRemainingPay, setOpenRemainingPay] = useState(false);
 
   const order: Order | undefined = useMemo(
     () => orders.find((o) => o.id === id),
@@ -63,10 +94,14 @@ export default function ShipmentTrackingPage() {
   const activeKey = shipment.status;
   const activeIndex = shipment.steps.findIndex((s) => s.key === activeKey);
   const isReceived = activeKey === "received";
-
-  // Top stepper: confirmed+advance+shipment+received (your UI)
-  // If you want: when received => activeIndex 4 else 3, keep like this:
   const topStepperIndex = isReceived ? 4 : 3;
+
+  // ✅ demo return request (replace later with order.returnRequest)
+  const returnReq: ReturnRequest = {
+    id: "RET-2025-08-020",
+    reasonBn: "ড্যামেজড (Damaged Product)",
+    status: "under_verification",
+  };
 
   return (
     <div className="min-h-screen bg-secondary">
@@ -136,7 +171,13 @@ export default function ShipmentTrackingPage() {
               <div className="mt-6">
                 {shipment.steps.map((s: ShipmentTrackingStep, idx: number) => {
                   const state =
-                    idx < activeIndex ? "done" : idx === activeIndex ? "active" : "idle";
+                    idx < activeIndex
+                      ? "done"
+                      : idx === activeIndex
+                      ? "active"
+                      : "idle";
+
+                  const receivedRow = s.key === "received";
 
                   return (
                     <div key={s.key} className="relative pl-8 pb-6 last:pb-0">
@@ -154,9 +195,13 @@ export default function ShipmentTrackingPage() {
                       <div
                         className={cn(
                           "absolute left-[7px] top-[8px] grid h-4 w-4 place-items-center rounded-full border",
-                          state === "done" && "border-primary bg-primary",
-                          state === "active" && "border-primary bg-white",
-                          state === "idle" && "border-gray/15 bg-white"
+                          receivedRow && isReceived
+                            ? "border-green bg-green"
+                            : state === "done"
+                            ? "border-primary bg-primary"
+                            : state === "active"
+                            ? "border-primary bg-white"
+                            : "border-gray/15 bg-white"
                         )}
                       >
                         {state === "active" && !isReceived ? (
@@ -170,7 +215,11 @@ export default function ShipmentTrackingPage() {
                           <p
                             className={cn(
                               "text-xs font-extrabold",
-                              state === "idle" ? "text-light-gray" : "text-gray"
+                              receivedRow && isReceived
+                                ? "text-green"
+                                : state === "idle"
+                                ? "text-light-gray"
+                                : "text-gray"
                             )}
                           >
                             {s.titleBn}{" "}
@@ -205,8 +254,49 @@ export default function ShipmentTrackingPage() {
             </div>
           </Card>
 
-          {/* RIGHT: payment + order mini */}
+          {/* RIGHT: 3 cards like screenshot */}
           <div className="space-y-4">
+            {/* ✅ return request card (top) */}
+            <Card className="rounded-2xl border border-amber/20 bg-amber/5 p-6">
+              <div className="flex items-center gap-2">
+                <div className="grid h-9 w-9 place-items-center rounded-xl bg-amber/10">
+                  <AlertTriangle size={16} className="text-amber" />
+                </div>
+                <p className="text-sm font-extrabold text-gray">
+                  পণ্য ফেরত আবেদন
+                </p>
+              </div>
+
+              <div className="mt-4 space-y-3">
+                <div>
+                  <p className="text-xs font-semibold text-light-gray">
+                    আবেদন আইডি
+                  </p>
+                  <p className="mt-1 text-sm font-extrabold text-gray">
+                    {returnReq.id}
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-xs font-semibold text-light-gray">
+                    ফেরত কারণ
+                  </p>
+                  <p className="mt-1 text-xs font-extrabold text-gray">
+                    {returnReq.reasonBn}
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <p className="text-xs font-semibold text-light-gray">স্ট্যাটাস</p>
+                  {returnStatusPill(returnReq.status)}
+                </div>
+              </div>
+
+              <Button className="mt-4 w-full" variant="primary">
+                আবেদনটি যাচাই করুন
+              </Button>
+            </Card>
+
             {/* payment */}
             <Card className="rounded-2xl border border-gray/15 bg-white p-6">
               <div className="flex items-center gap-2">
@@ -233,21 +323,36 @@ export default function ShipmentTrackingPage() {
                   </span>
                 </div>
 
+                {/* ✅ remaining row like screenshot: add a pill */}
+                <div className="flex items-center justify-between">
+                  <span className="font-semibold text-light-gray">
+                    বকেয়া পেমেন্ট (পরিশোধিত):
+                  </span>
+                  <span className="font-extrabold text-green">
+                    {money(remaining)}
+                  </span>
+                </div>
+
                 <div className="h-px w-full bg-gray/10" />
 
                 <div className="flex items-center justify-between">
-                  <span className="font-semibold text-light-gray">বকেয়া পেমেন্ট:</span>
+                  <span className="font-semibold text-light-gray">
+                    মোট পরিশোধিত:
+                  </span>
                   <span className="font-extrabold text-primary">
-                    {money(remaining)}
+                    {money(order.advancePaid + (isReceived ? remaining : 0))}
                   </span>
                 </div>
               </div>
 
-              {/* ✅ demo-driven enable: only when received */}
               <Button
                 className="mt-5 w-full"
                 variant={isReceived ? "primary" : "outline"}
                 disabled={!isReceived}
+                onClick={() => {
+                  if (!isReceived) return;
+                  setOpenRemainingPay(true);
+                }}
               >
                 অবশিষ্ট পেমেন্টের জন্য অনুরোধ করুন
               </Button>
@@ -268,7 +373,7 @@ export default function ShipmentTrackingPage() {
                   <PackageCheck size={14} className="mt-[2px] text-light-gray" />
                   <div>
                     <p className="font-semibold text-light-gray">পণ্য</p>
-                    <p className="mt-1 font-extrabold text-gray">
+                    <p className="mt-1 text-sm font-extrabold text-gray">
                       {firstItem?.name ?? "-"}
                     </p>
                   </div>
@@ -278,7 +383,7 @@ export default function ShipmentTrackingPage() {
                   <MapPin size={14} className="mt-[2px] text-light-gray" />
                   <div>
                     <p className="font-semibold text-light-gray">গন্তব্য</p>
-                    <p className="mt-1 font-extrabold text-gray">
+                    <p className="mt-1 text-sm font-extrabold text-gray">
                       {order.officeName}
                     </p>
                   </div>
@@ -287,7 +392,7 @@ export default function ShipmentTrackingPage() {
 
               <div className="mt-4">
                 <Link href={`/vendor/active-orders/${order.id}`}>
-                  <Button className="w-full" variant="primary">
+                  <Button className="w-full" variant="outline">
                     ডিটেইলস পেজে ফিরে যান
                   </Button>
                 </Link>
@@ -296,6 +401,12 @@ export default function ShipmentTrackingPage() {
           </div>
         </div>
       </div>
+
+      {/* remaining payment modal */}
+      <RemainingPaymentRequestDialog
+        open={openRemainingPay}
+        onOpenChange={setOpenRemainingPay}
+      />
     </div>
   );
 }

@@ -19,7 +19,7 @@ export default function AvailabilityToggle({
         onClick={onChange}
         className={cn(
           "relative h-5 w-9 rounded-full border border-gray/15 transition",
-          checked ? "bg-primary" : "bg-secondary"
+          checked ? "bg-primary-color" : "bg-secondary"
         )}
         aria-pressed={checked}
       >

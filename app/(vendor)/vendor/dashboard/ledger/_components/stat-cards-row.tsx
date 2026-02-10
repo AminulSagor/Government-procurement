@@ -6,7 +6,7 @@ import StatCard from "./stat-card";
 
 export default function StatCardsRow({ stats }: { stats: LedgerStatCard[] }) {
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+    <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
       {stats.map((s) => (
         <StatCard key={s.key} stat={s} />
       ))}

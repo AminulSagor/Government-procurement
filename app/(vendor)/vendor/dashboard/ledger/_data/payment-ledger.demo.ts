@@ -11,7 +11,7 @@ export const demoStats: LedgerStatCard[] = [
   },
   {
     key: "processing_fee",
-    title: "প্রক্রিয়াজাত ফি",
+    title: "প্রক্রিয়াধীন বিল",
     value: 20000,
     hint: "↑ ফি হিসাব চলছে",
     hintTone: "amber",
@@ -27,7 +27,7 @@ export const demoStats: LedgerStatCard[] = [
   },
   {
     key: "total_payment",
-    title: "সর্বমোট পেমেন্ট",
+    title: "সর্বশেষ পেমেন্ট",
     value: 650000,
     hint: "↑ আগস্ট, ২০২৪",
     hintTone: "gray",

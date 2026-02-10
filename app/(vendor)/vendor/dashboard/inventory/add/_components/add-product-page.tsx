@@ -18,20 +18,23 @@ export default function AddProductPage() {
     setForm((p) => ({ ...p, [k]: v }));
 
   return (
-    <div className="px-6 py-6">
+    <div className="min-h-screen bg-secondary/30 px-6 py-6">
       <div className="mx-auto w-full max-w-[980px]">
         <AddProductHeader />
 
-        <div className="mt-4 space-y-4">
-          <MasterCatalogSearchCard form={form} setField={setField} />
-          <OfferStockConfigCard form={form} setField={setField} />
-        </div>
+        <Card className="mt-6 flex flex-col gap-6">
+          <div className="mt-4 space-y-4">
+            <MasterCatalogSearchCard form={form} setField={setField} />
+            <OfferStockConfigCard form={form} setField={setField} />
+          </div>
 
-        <div className="mt-4">
-          <Card className="p-0">
-            <FormFooterActions onCancel={() => null} onSave={() => null} />
-          </Card>
-        </div>
+          <div className="mt-4">
+            <div className="overflow-hidden p-0">
+              <FormFooterActions onCancel={() => null} onSave={() => null} />
+            </div>
+          </div>
+
+        </Card>
       </div>
     </div>
   );

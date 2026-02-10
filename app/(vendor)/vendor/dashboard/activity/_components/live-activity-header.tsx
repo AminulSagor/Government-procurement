@@ -1,12 +1,13 @@
 "use client";
 
 import React from "react";
+import { cn } from "@/lib/utils";
 
 export default function LiveActivityHeader() {
   return (
     <div className="flex items-start gap-3">
       {/* icon box */}
-      <div className="grid h-9 w-9 place-items-center rounded-lg bg-primary-color/10">
+      <div className="grid h-10 w-10 place-items-center rounded-lg bg-primary-color/10">
         <svg
           width="18"
           height="18"

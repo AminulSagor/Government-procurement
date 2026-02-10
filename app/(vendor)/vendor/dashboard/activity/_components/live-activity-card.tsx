@@ -3,10 +3,11 @@
 import React from "react";
 import Card from "@/components/cards/card";
 import LiveActivityHeader from "./live-activity-header";
-import LiveActivityToolbar from "./live-activity-toolbar";
+
 import LiveActivityList from "./live-activity-list";
 import TablePagination from "./table-pagination";
 import { ActivityItem } from "../_types/live-activity.types";
+import { LiveActivityToolbar } from "./live-activity-toolbar";
 
 export default function LiveActivityCard({
   items,

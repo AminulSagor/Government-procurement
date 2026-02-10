@@ -4,6 +4,7 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { ActivityItem } from "../_types/live-activity.types";
 import ActivityBadge from "./activity-badge";
+import { ArrowBigRight, ArrowRight, X } from "lucide-react";
 
 function ToneDot({ tone }: { tone: ActivityItem["tone"] }) {
   const cls =
@@ -30,11 +31,11 @@ export default function LiveActivityItem({ item }: { item: ActivityItem }) {
             <p className="text-sm font-semibold text-gray">
               {item.title}{" "}
               {item.refText ? (
-                <span className="text-primary">{item.refText}</span>
+                <span className="text-primary-color">{item.refText}</span>
               ) : null}
             </p>
 
-            <p className="mt-2 text-xs text-gray leading-relaxed max-w-[680px]">
+            <p className="mt-2 text-xs text-light-gray leading-relaxed max-w-[680px]">
               {item.description}
             </p>
 
@@ -68,9 +69,9 @@ export default function LiveActivityItem({ item }: { item: ActivityItem }) {
             <button
               type="button"
               onClick={() => null}
-              className="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-2"
+              className="text-xs font-semibold text-primary-color hover:underline inline-flex items-center gap-2"
             >
-              বিস্তারিত দেখুন <span aria-hidden>→</span>
+              বিস্তারিত দেখুন <ArrowRight size={14} />
             </button>
           ) : null}
 
@@ -78,9 +79,9 @@ export default function LiveActivityItem({ item }: { item: ActivityItem }) {
             <button
               type="button"
               onClick={() => null}
-              className="text-xs font-semibold text-gray hover:underline inline-flex items-center gap-2"
+              className="text-xs font-semibold text-light-gray hover:underline inline-flex items-center gap-2"
             >
-              সরিয়ে দিন <span aria-hidden>×</span>
+              সরিয়ে দিন <X size={14} />
             </button>
           ) : null}
         </div>
