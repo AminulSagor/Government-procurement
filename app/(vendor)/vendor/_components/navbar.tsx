@@ -13,9 +13,9 @@ type NavItem = { label: string; href: string };
 
 const navItems: NavItem[] = [
   { label: "ড্যাশবোর্ড", href: "/vendor/dashboard" },
-  { label: "কোটেশন (Quotation)", href: "/vendor/quotation" },
-  { label: "ইনভেন্টরি (Inventory)", href: "/vendor/inventory" },
-  { label: "অর্ডার (Orders)", href: "/vendor/orders" },
+  { label: "কোটেশন (Quotation)", href: "/vendor/dashboard/quotation" },
+  { label: "ইনভেন্টরি (Inventory)", href: "/vendor/dashboard/inventory" },
+  { label: "অর্ডার (Orders)", href: "/vendor/dashboard/orders" },
 ];
 
 export default function Navbar() {
