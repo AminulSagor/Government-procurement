@@ -134,7 +134,7 @@ export default function QuotationCard({ q }: { q: Quotation }) {
           {q.ctaText}
         </button>
       ) : (
-        <Link href="/vendor/dashboard/quotation-inbox/quotation-details">
+        <Link href="/vendor/dashboard/quotation-inbox/RFQ-2024-DHAKA-05">
           <PrimaryButton className="mt-5 w-full py-3 text-sm font-extrabold flex items-center justify-center gap-2">
             {q.ctaText} <ArrowRight size={18} />
           </PrimaryButton>
