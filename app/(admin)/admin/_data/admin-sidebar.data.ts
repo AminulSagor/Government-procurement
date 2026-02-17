@@ -16,6 +16,6 @@ export const adminSidebarItems: AdminSidebarItem[] = [
   { title: "Analytics", url: "/admin/dashboard/analytics" },
   { title: "Live Activity Feed", url: "/admin/dashboard/live-activity-feed" },
 
-  { title: "Account Settings", url: "/admin/dashboard/account-settings", icon: "/icons/user-icon.png" },
+  { title: "Account Settings", url: "/admin/dashboard/account-settings/change-password", icon: "/icons/user-icon.png" },
   { title: "Logout", url: "/admin/logout", icon: "/icons/logout-icon.png" },
 ];

@@ -50,13 +50,13 @@ export default function VIStepper({ active }: { active: VIStage }) {
                 <div
                   className={[
                     "flex h-[52px] w-[52px] items-center justify-center rounded-full z-10",
-                    isCurrent ? "bg-[rgba(120,185,181,0.18)] " : "",
+                    isCurrent ? "bg-[var(--color-primary-color)] text-white" : "",
                   ].join(" ")}
                 >
                   {/* circle */}
                   <div
                     className={[
-                      "flex h-11 w-11 items-center justify-center rounded-full  z-10",
+                      "flex h-11 w-11 items-center justify-center rounded-full text-white z-10",
                       isDone
                         ? "border-[var(--color-green)] bg-[var(--color-green)] text-white"
                         : "border-[rgba(145,145,145,0.25)] text-[rgba(145,145,145,0.80)]",

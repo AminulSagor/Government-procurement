@@ -41,17 +41,17 @@ export default function NegLeftPanel({
           <MiniTab
             active={miniStep === "selected-items"}
             onClick={() => onMiniStepChange("selected-items")}
-            label="১. নির্বাচিত আইটেম"
+            label="১. মূলতবি আইটেম"
           />
           <MiniTab
             active={miniStep === "credit-setup"}
             onClick={() => onMiniStepChange("credit-setup")}
-            label="২. ক্রেডিট সেটআপ"
+            label="২. প্রেরিত দরপত্র"
           />
           <MiniTab
             active={miniStep === "offer-setup"}
             onClick={() => onMiniStepChange("offer-setup")}
-            label="৩. অফার সেটআপ"
+            label="৩. গৃহীত দরপত্র"
           />
         </div>
       </div>
