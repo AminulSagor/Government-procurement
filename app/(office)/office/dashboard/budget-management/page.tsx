@@ -1,5 +1,4 @@
-import React from "react";
-import BudgetReports from "./_components/budget-report";
+import BudgetReports from "@/app/(office)/office/dashboard/budget-management/_components/budget-report";
 
 const BudgetManagement = () => {
   return (

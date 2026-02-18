@@ -32,7 +32,6 @@ import {
   Plus,
   X,
 } from "lucide-react";
-import BudgetTableComponent from "./budget_depricated";
 
 /* ----------------------------- types ----------------------------- */
 type StepKey = "upload" | "code" | "budget" | "review";
@@ -79,61 +78,7 @@ function uid() {
   return Math.random().toString(16).slice(2);
 }
 
-/* ----------------------------- stepper ----------------------------- */
-function Stepper({
-  steps,
-  currentIndex,
-}: {
-  steps: { key: StepKey; label: string }[];
-  currentIndex: number;
-}) {
-  return (
-    <div className="w-full">
-      <div className="relative mt-2">
-        <div className="absolute left-0 right-0 top-4 h-px bg-muted" />
-        <div className="relative flex items-center justify-between">
-          {steps.map((s, i) => {
-            const done = i < currentIndex;
-            const active = i === currentIndex;
 
-            return (
-              <div key={s.key} className="flex flex-col items-center gap-2">
-                <div
-                  className={cn(
-                    "z-10 flex h-8 w-8 items-center justify-center rounded-full border bg-background text-sm",
-                    done && "border-teal-600",
-                    active && "border-teal-700 ring-4 ring-teal-100",
-                    !done && !active && "border-muted-foreground/30",
-                  )}
-                >
-                  {done ? (
-                    <CheckCircle2 className="h-4 w-4 text-teal-700" />
-                  ) : (
-                    <span
-                      className={cn(
-                        "h-2 w-2 rounded-full",
-                        active ? "bg-teal-700" : "bg-muted-foreground/40",
-                      )}
-                    />
-                  )}
-                </div>
-
-                <div
-                  className={cn(
-                    "text-xs",
-                    active ? "text-teal-800" : "text-muted-foreground",
-                  )}
-                >
-                  {s.label}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 /* ----------------------------- step: upload ----------------------------- */
 function UploadStep({
@@ -811,35 +756,6 @@ export default function BudgetReportWizard() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* top bar */}
-      <div className="border-b bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-4">
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <div className="flex items-center gap-2">
-                <div className="flex h-7 w-7 items-center justify-center rounded-full border">
-                  <ArrowLeft className="h-4 w-4" />
-                </div>
-                <h1 className="text-lg font-semibold">
-                  বাজেট রিপোর্ট আপলোড করুন
-                </h1>
-              </div>
-              <p className="mt-1 text-sm text-muted-foreground">
-                সরাসরি কপ/ক্যানভাসের পরিবর্তে ধাপে ধাপে প্রক্রিয়া সম্পন্ন করুন
-              </p>
-            </div>
-
-            <Button variant="outline" className="hidden sm:inline-flex">
-              ফাইল সংরক্ষণ করুন
-            </Button>
-          </div>
-
-          <div className="mt-3">
-            <Stepper steps={steps} currentIndex={currentIndex} />
-          </div>
-        </div>
-      </div>
-
       {/* body */}
       <div className="mx-auto max-w-6xl px-4 py-6 space-y-4">
         {stepKey === "upload" && (
