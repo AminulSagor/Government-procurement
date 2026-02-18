@@ -15,7 +15,7 @@ import BudgetEntryStep3 from "@/app/(office)/office/dashboard/budget-management/
 import BudgetEntryStep2 from "@/app/(office)/office/dashboard/budget-management/create/budget-entry/BudgetEntryStep2";
 
 const BudgetCratePage = () => {
-  const [currentStep, setCurrentStep] = useState<number>(2);
+  const [currentStep, setCurrentStep] = useState<number>(0);
   const [file, setFile] = useState<File | null>(null);
   const [fiscalFrom, setFiscalFrom] = useState("");
   const [fiscalTo, setFiscalTo] = useState("");
