@@ -3,9 +3,14 @@ export type OrderListStatus =
   | "active"
   | "shipped"
   | "previous"
-  | "draft";
+  | "draft"
+  | "received";
 
-export type OrderStepKey = "confirmed" | "processing" | "in_transit" | "received";
+export type OrderStepKey =
+  | "confirmed"
+  | "processing"
+  | "in_transit"
+  | "received";
 
 type BaseOrder = {
   id: string;
@@ -18,7 +23,7 @@ type BaseOrder = {
 };
 
 export type ActiveOrShippedOrder = BaseOrder & {
-  status: "active" | "shipped" | "previous";
+  status: "active" | "shipped" | "previous" | "received";
   stepCurrent?: OrderStepKey;
   totalAmountText: string;
   dueAmountText: string;

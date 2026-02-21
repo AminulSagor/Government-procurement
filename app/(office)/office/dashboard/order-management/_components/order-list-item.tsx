@@ -53,10 +53,14 @@ export default function OrderListItem({ o }: { o: Orders }) {
   const router = useRouter();
 
   const showStepper =
-    o.status === "active" || o.status === "shipped" || o.status === "previous";
+    o.status === "active" ||
+    o.status === "shipped" ||
+    o.status === "previous" ||
+    o.status === "received";
 
   const hasAccent =
     o.status === "shipped" ||
+    o.status === "received" ||
     o.status === "pending_quote" ||
     o.status === "draft";
 
@@ -67,6 +71,7 @@ export default function OrderListItem({ o }: { o: Orders }) {
   const totalAmountText =
     (o.status === "active" ||
       o.status === "shipped" ||
+      o.status === "received" ||
       o.status === "previous") &&
     o.totalAmountText
       ? o.totalAmountText
@@ -75,13 +80,16 @@ export default function OrderListItem({ o }: { o: Orders }) {
   const dueAmountText =
     (o.status === "active" ||
       o.status === "shipped" ||
+      o.status === "received" ||
       o.status === "previous") &&
     o.dueAmountText
       ? o.dueAmountText
       : null;
 
   const trackingCode =
-    o.status === "shipped" && o.trackingCode ? o.trackingCode : null;
+    (o.status === "shipped" || o.status === "received") && o.trackingCode
+      ? o.trackingCode
+      : null;
 
   const quotesReceivedCount =
     o.status === "pending_quote" ? o.quotesReceivedCount : null;
@@ -226,7 +234,7 @@ export default function OrderListItem({ o }: { o: Orders }) {
             <button
               type="button"
               className="flex h-10 items-center gap-2 rounded-md bg-primary-color px-5 text-sm font-extrabold text-white hover:opacity-90"
-              onClick={() => router.push(`/office/dashboard/order&delivery/`)}
+              onClick={() => router.push(`#`)}
             >
               অর্ডার সম্পন্ন করুন <ArrowRight className="h-4 w-4" />
             </button>
@@ -273,7 +281,7 @@ export default function OrderListItem({ o }: { o: Orders }) {
             aria-label="View"
             onClick={() =>
               router.push(
-                `/office/dashboard/order&delivery/${o.id}/active-order`,
+                `/office/dashboard/order-management/${o.id}/order-details`,
               )
             }
           >

@@ -2,7 +2,7 @@ import { Orders } from "@/app/(office)/office/types/order-list-type";
 
 export const orders: Orders[] = [
   {
-    id: "1",
+    id: "4921",
     ref: "#ORD-4921",
     title: "Office Laptops (Dell Latitude 5000)",
     status: "active",
@@ -14,7 +14,20 @@ export const orders: Orders[] = [
     dueAmountText: "৳ ৫৬,০০০",
   },
   {
-    id: "2",
+    id: "4922",
+    ref: "#ORD-4922",
+    title: "Office Desks (Wooden Executive)",
+    status: "received",
+    badgeLabel: "Received",
+    meta1: "Courier: Sundarban Courier",
+    meta2: "Tracking:",
+    stepCurrent: "received",
+    trackingCode: "SD-882195",
+    totalAmountText: "৳ ১,২০,০০০",
+    dueAmountText: "৳ ০",
+  },
+  {
+    id: "4918",
     ref: "#ORD-4918",
     title: "Stationery Supplies Batch A",
     status: "shipped",
