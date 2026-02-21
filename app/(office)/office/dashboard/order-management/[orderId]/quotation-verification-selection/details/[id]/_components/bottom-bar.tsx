@@ -2,6 +2,8 @@
 
 import PrimaryButton from "@/components/buttons/primary-button";
 import SecondaryButton from "@/components/buttons/secondary-button";
+import { CirclePlus } from "lucide-react";
+import Link from "next/link";
 
 export default function BottomBar() {
   return (
@@ -12,7 +14,16 @@ export default function BottomBar() {
 
       <div className="flex items-center gap-3">
         <SecondaryButton className="px-5 py-2">বাতিল করুন</SecondaryButton>
-        <PrimaryButton className="px-5 py-2">উদ্ধৃতি অনুমোদন করুন এবং অর্ডারটি তৈরি করুন</PrimaryButton>
+        <Link
+          href={
+            "/office/dashboard/order-management/p1/quotation-verification-selection/details/v1/voucher-create"
+          }
+        >
+          <PrimaryButton className="px-5 py-2 flex items-center gap-2">
+            <CirclePlus size={18} />
+            উদ্ধৃতি অনুমোদন করুন এবং ভাউচার তৈরি করুন
+          </PrimaryButton>
+        </Link>
       </div>
     </div>
   );

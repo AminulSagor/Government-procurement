@@ -20,8 +20,12 @@ export default function Page() {
       />
 
       <Stepper
-        items={data.stepper.items}
-        currentStepIndex={data.stepper.currentStepIndex}
+        current={"info"}
+        steps={[
+          { key: "info", titleBn: "তথ্য এন্ট্রি", subtitleBn: "অসম্পন্ন" },
+          { key: "upload", titleBn: "নথিপত্র আপলোড", subtitleBn: "অসম্পন্ন" },
+          { key: "approval", titleBn: "অনুমোদন", subtitleBn: "অসম্পন্ন" },
+        ]}
       />
 
       <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12">

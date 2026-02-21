@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import Breadcrumb from "@/components/breadCrumb";
+import BackButton from "@/components/buttons/back-button";
 
 export default function PageHeader({
   title,
@@ -21,25 +22,23 @@ export default function PageHeader({
         items={[
           { label: "হোম", href: "/office/dashboard" },
           { label: "অর্ডার", href: "/office/dashboard/order-management" },
-          { label: "অর্ডারের বিবরণ", href: "#" },
-          { label: "কোটেশন বিবরন", href: "#" },
+          {
+            label: "অর্ডারের বিস্তারিত",
+            href: "/office/dashboard/order-management/p1/quotation-verification-selection/details/v1",
+          },
           { label: "অগ্রিম পেমেন্ট" },
         ]}
       />
 
       <div className="mt-4 flex items-start justify-between gap-4">
         <div className="flex items-start gap-3">
-          <Link
-            href="#"
-            className="mt-1 inline-flex h-10 w-10 items-center justify-center rounded-full border border-medium-gray/20 bg-white text-primary-color hover:brightness-105"
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </Link>
+          <BackButton />
 
           <div>
             <h1 className="text-2xl font-bold text-black">{title}</h1>
             <p className="mt-1 text-sm text-medium-gray">
-              অর্ডার <span className="text-primary-color">{orderCode}</span> • {updatedLabel}
+              অর্ডার <span className="text-primary-color">{orderCode}</span> •{" "}
+              {updatedLabel}
             </p>
           </div>
         </div>
