@@ -3,6 +3,7 @@
 import type { ProcurementProduct } from "@/app/(office)/office/types/procurement-product-type";
 import PrimaryButton from "@/components/buttons/primary-button";
 import Card from "@/components/cards/card";
+import Link from "next/link";
 
 const bnMoney = (n: number) => `৳${n.toLocaleString("en-US")}`;
 
@@ -69,10 +70,11 @@ export default function SelectedCart({
             {bnMoney(total)}
           </div>
         </div>
-
-        <PrimaryButton className="w-full h-12 text-base">
-          চাহিদাপত্র সম্পন্ন করুন →
-        </PrimaryButton>
+        <Link href={"/office/dashboard/procurement/2/cart"}>
+          <PrimaryButton className="w-full h-12 text-base">
+            চাহিদাপত্র সম্পন্ন করুন →
+          </PrimaryButton>
+        </Link>
       </div>
     </Card>
   );
