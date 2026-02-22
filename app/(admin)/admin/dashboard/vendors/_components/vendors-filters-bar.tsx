@@ -19,9 +19,9 @@ export default function VendorsFiltersBar({
     <div className="rounded-2xl border border-[rgba(100,116,139,0.18)] bg-white p-4">
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         {/* search */}
-        <div className="relative w-full lg:max-w-[720px]">
+        <div className="relative w-full lg:max-w-180">
           <Search
-            className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-medium-gray)]"
+            className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-(--color-medium-gray)"
             strokeWidth={2}
           />
           <input
@@ -35,7 +35,7 @@ export default function VendorsFiltersBar({
         {/* right controls */}
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
           <div className="flex items-center gap-2">
-            <div className="text-xs text-[var(--color-medium-gray)]">স্ট্যাটাস:</div>
+            <div className="text-xs text-(--color-medium-gray)">স্ট্যাটাস:</div>
             <select
               value={filters.status}
               onChange={(e) => onChange({ ...filters, status: e.target.value as any })}
@@ -48,7 +48,7 @@ export default function VendorsFiltersBar({
           </div>
 
           <div className="flex items-center gap-2">
-            <div className="text-xs text-[var(--color-medium-gray)]">ক্যাটাগরি:</div>
+            <div className="text-xs text-(--color-medium-gray)">ক্যাটাগরি:</div>
             <select
               value={filters.category}
               onChange={(e) => onChange({ ...filters, category: e.target.value as any })}
@@ -66,7 +66,7 @@ export default function VendorsFiltersBar({
           <Button
             type="button"
             onClick={onAddVendor}
-            className="h-11 rounded-xl bg-[var(--color-primary-color)] px-4 text-white hover:opacity-95"
+            className="h-11 rounded-xl bg-(--color-primary-color) px-4 text-white hover:opacity-95"
           >
             <Plus className="mr-2 h-4 w-4" />
             নতুন ভেন্ডর যুক্ত করুন

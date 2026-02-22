@@ -9,6 +9,7 @@ import VendorsPagination from "./_components/vendors-pagination";
 
 import type { VendorsFiltersState, VendorCategory } from "./_types/vendors.types";
 import { demoVendorStats, demoVendorsMeta, demoVendorsRows } from "./_data/vendors.demo";
+import { redirect } from "next/navigation";
 
 export default function VendorsPage() {
   const [filters, setFilters] = useState<VendorsFiltersState>({
@@ -42,7 +43,7 @@ export default function VendorsPage() {
   }, [filters]);
 
   // demo handlers (wire API later)
-  const onAddVendor = () => console.log("add vendor");
+  const onAddVendor = () => redirect("/admin/dashboard/vendors/new");
   const onVerify = (id: string) => console.log("verify", id);
   const onEdit = (id: string) => console.log("edit", id);
   const onView = (id: string) => console.log("view", id);
