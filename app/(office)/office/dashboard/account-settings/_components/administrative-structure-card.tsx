@@ -1,17 +1,21 @@
 import Card from "@/components/cards/card";
 import { Eye, Landmark } from "lucide-react";
+import Link from "next/link";
 import { FaUsers } from "react-icons/fa";
 import { PiBuildingsFill } from "react-icons/pi";
 import { TbBuildingBank } from "react-icons/tb";
 const AdministrativeStructureCard = () => {
   return (
     <Card>
-      <div className="flex justify-between items-center">
+      <Link
+        href={"/office/dashboard/account-settings/configaration"}
+        className="flex justify-between items-center"
+      >
         <h1 className="font-bold">প্রশাসনিক কাঠামো</h1>
         <span className="text-primary-color">
           <Eye size={20} />
         </span>
-      </div>
+      </Link>
 
       <div className="mt-6">
         <div className="flex gap-4 items-center">
