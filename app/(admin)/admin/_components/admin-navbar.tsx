@@ -15,7 +15,7 @@ export default function AdminNavbar() {
   const bellRef = useRef<HTMLButtonElement>(null);
 
   return (
-    <header className="h-14 w-full bg-[#1F6F86] px-5 flex items-center justify-between text-white">
+    <header className="h-14 w-full bg-[#1F6F86] px-5 flex items-center justify-between text-white fixed">
       {/* LEFT: Logo */}
       <div className="flex items-center gap-2 font-semibold">
         <SidebarTrigger />

@@ -6,7 +6,6 @@ import NotificationItem from "./notification-item";
 import NotificationFooter from "./notification-footer";
 import { notificationList } from "../../_data/notification-data";
 
-
 export default function NotificationPopup({
   open,
   onClose,
@@ -14,7 +13,7 @@ export default function NotificationPopup({
 }: {
   open: boolean;
   onClose: () => void;
-  anchorRef: React.RefObject<HTMLButtonElement>;
+  anchorRef: React.RefObject<HTMLButtonElement | null>;
 }) {
   const panelRef = useRef<HTMLDivElement>(null);
 
