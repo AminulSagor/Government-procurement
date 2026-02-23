@@ -13,7 +13,6 @@ import {
 import { AdminSidebar } from "./_components/admin-sidebar";
 import { adminSidebarItems } from "./_data/admin-sidebar.data";
 
-
 export default function AdminDashboardLayout({
   children,
 }: {

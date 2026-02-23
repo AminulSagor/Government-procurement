@@ -53,5 +53,7 @@ export type QuickLinkData = {
   labelBn: string;
   href: string;
   badge?: number;
-  iconText: string;
+
+  iconKey: string;
+  tone: string;
 };

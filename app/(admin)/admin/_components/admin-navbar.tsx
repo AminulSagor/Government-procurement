@@ -2,20 +2,24 @@
 "use client";
 
 import Logo from "@/components/main-logo";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import { Bell } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import NotificationPopup from "./notifications/notification-popup";
 
-
 export default function AdminNavbar() {
   const [openNoti, setOpenNoti] = useState(false);
   const bellRef = useRef<HTMLButtonElement>(null);
-
+  const { open } = useSidebar();
   return (
-    <header className="h-14 w-full bg-[#1F6F86] px-5 flex items-center justify-between text-white fixed">
+    <header
+      className={[
+        "h-14 bg-[#1F6F86] px-5 flex items-center justify-between text-white fixed top-0 right-0 z-50",
+        open ? "left-64" : "left-0",
+      ].join(" ")}
+    >
       {/* LEFT: Logo */}
       <div className="flex items-center gap-2 font-semibold">
         <SidebarTrigger />
