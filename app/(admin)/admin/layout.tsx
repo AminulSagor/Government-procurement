@@ -30,7 +30,9 @@ export default function AdminDashboardLayout({
       {/* ✅ Main area */}
       <SidebarInset>
         <AdminNavbar />
-        <main className="py-16">{children}</main>
+        <main className="py-16 bg-[#F8F9FA]">
+          {children}
+        </main>
       </SidebarInset>
     </SidebarProvider>
   );
