@@ -1,0 +1,110 @@
+import { ReturnRequestRow } from "../_types/return-request.types";
+
+export const RETURN_REQUESTS_DEMO: ReturnRequestRow[] = [
+  {
+    orderId: "#ORD-8892",
+    requestDate: "12 Jan 2025",
+    officeTitleBn: "নোয়াখালী সদর",
+    officeSubtitleBn: "জেলা প্রশাসকের কার্যালয়",
+    vendor: "Computer Source Ltd",
+    product: "HP Toner 85A",
+    qty: 2,
+    amountBdt: 9000,
+    status: "pending",
+    damageType: "damaged",
+    officeKey: "noakhali",
+  },
+  {
+    orderId: "#ORD-7751",
+    requestDate: "10 Jan 2025",
+    officeTitleBn: "সাভার",
+    officeSubtitleBn: "উপজেলা নির্বাহী অফিস",
+    vendor: "Global Brand Pvt Ltd",
+    product: "Logitech Mouse M185",
+    qty: 15,
+    amountBdt: 9750,
+    status: "waiting",
+    damageType: "wrong_item",
+    officeKey: "savar",
+  },
+  {
+    orderId: "#ORD-9012",
+    requestDate: "08 Jan 2025",
+    officeTitleBn: "গাজীপুর",
+    officeSubtitleBn: "জেলা প্রশাসকের কার্যালয়",
+    vendor: "Flora Limited",
+    product: 'Dell Monitor 24"',
+    qty: 5,
+    amountBdt: 80000,
+    status: "accepted",
+    damageType: "missing_parts",
+    officeKey: "gazipur",
+  },
+  {
+    orderId: "#ORD-6623",
+    requestDate: "05 Jan 2025",
+    officeTitleBn: "সদর দপ্তর",
+    officeSubtitleBn: "সচিব কার্যালয়",
+    vendor: "Smart Technologies",
+    product: "Epson Projector",
+    qty: 1,
+    amountBdt: 82000,
+    status: "denied",
+    damageType: "damaged",
+    officeKey: "nilphamari",
+  },
+  {
+    orderId: "#ORD-5541",
+    requestDate: "02 Jan 2025",
+    officeTitleBn: "নীলফামারী",
+    officeSubtitleBn: "প্রাথমিক শিক্ষা অফিস",
+    vendor: "Star Tech & Eng",
+    product: "Samsung SSD 500GB",
+    qty: 3,
+    amountBdt: 16500,
+    status: "accepted",
+    damageType: "wrong_item",
+    officeKey: "nilphamari",
+  },
+
+  // // extra rows to make total 18 (like screenshot) for pagination demo
+  // ...Array.from({ length: 13 }).map((_, i) => ({
+  //   orderId: `#ORD-${7000 + i}`,
+  //   requestDate: "01 Jan 2025",
+  //   officeTitleBn: "গাজীপুর",
+  //   officeSubtitleBn: "জেলা প্রশাসকের কার্যালয়",
+  //   vendor: "Demo Vendor Ltd",
+  //   product: "Demo Product",
+  //   qty: (i % 5) + 1,
+  //   amountBdt: 5000 + i * 750,
+  //   status: (["PENDING_REVIEW", "SETTLED", "IN_PROGRESS", "REJECTED"] as const)[i % 4],
+  //   damageType: (["damaged", "wrong_item", "missing_parts"] as const)[i % 3],
+  //   officeKey: (["gazipur", "noakhali", "savar", "nilphamari"] as const)[i % 4],
+  // })),
+];
+
+import { ReturnRequestItem } from "../_types/return-request.types";
+
+export const mockReturnRequests: ReturnRequestItem[] = [
+  {
+    id: "REQ-8892",
+    caseId: "RET-2025-001",
+    orderId: "ORD-4918",
+    productName: "এইচ পেনড্রাইভ (৫০০ জিবি)",
+    vendorName: "Computer Source Ltd",
+    officeName: "নোয়াখালী সদর উপজেলা",
+    createdAt: "12 জানুয়ারি ২০২৫",
+    returnReason: "ক্ষতিগ্রস্ত/ভাঙা পণ্য",
+    status: "denied",
+    vendorClaimText:
+      "পণ্যটি ডেলিভারির সময় ভালো ছিল। আনবক্সিং/ড্যামেজ প্রমাণের ছবি প্রয়োজন।",
+    officeClaimText:
+      "পণ্য হাতে পাওয়ার পর দেখা যায় ক্ষতিগ্রস্ত। প্রমাণ হিসেবে ছবি সংযুক্ত করা হয়েছে।",
+    evidence: [{ name: "DAMAGED_PAPER.JPG" }, { name: "Damage_01.jpg" }, { name: "Damage_02.jpg" }],
+    checks: [
+      { label: "ড্যামেজের সামঞ্জস্যতা (ভিজ্যুয়াল)", value: "সঠিক (প্রমাণ আছে)", ok: true },
+      { label: "প্রোডাক্টের সিরিয়াল/মডেল", value: "সঠিক (অর্ডারের সাথে মিলে)", ok: true },
+      { label: "প্যাকেজিং অবস্থা", value: "আংশিক ক্ষতিগ্রস্ত", ok: true },
+    ],
+  },
+];
