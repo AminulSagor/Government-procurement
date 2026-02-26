@@ -14,10 +14,9 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
-import { VendorSidebarItem } from "../types/report-audit";
+import { SidebarItems } from "@/types/navigation";
 
-
-export function VendorSidebar({ items }: { items: VendorSidebarItem[] }) {
+export function VendorSidebar({ items }: { items: SidebarItems[] }) {
   const pathname = usePathname();
   const router = useRouter();
   const [openKey, setOpenKey] = React.useState<string | null>(null);
@@ -25,14 +24,16 @@ export function VendorSidebar({ items }: { items: VendorSidebarItem[] }) {
   /* ---------------- helpers ---------------- */
 
   const isPathActive = React.useCallback(
-    (url?: string) => !!url && (pathname === url || pathname.startsWith(`${url}/`)),
-    [pathname]
+    (url?: string) =>
+      !!url && (pathname === url || pathname.startsWith(`${url}/`)),
+    [pathname],
   );
 
   const activeKey = React.useMemo(() => {
     const hit = items.find((it) => {
       if (it.url && isPathActive(it.url)) return true;
-      if (it.children?.length) return it.children.some((c) => isPathActive(c.url));
+      if (it.children?.length)
+        return it.children.some((c) => isPathActive(c.url));
       return false;
     });
     return hit?.title ?? "";
@@ -41,7 +42,8 @@ export function VendorSidebar({ items }: { items: VendorSidebarItem[] }) {
   // auto open dropdown if any child active
   React.useEffect(() => {
     const dd = items.find(
-      (it) => it.children?.length && it.children.some((c) => isPathActive(c.url))
+      (it) =>
+        it.children?.length && it.children.some((c) => isPathActive(c.url)),
     );
     if (dd) setOpenKey(dd.title);
   }, [items, isPathActive]);
@@ -135,7 +137,9 @@ export function VendorSidebar({ items }: { items: VendorSidebarItem[] }) {
                                     "px-2 py-2 rounded-sm",
                                     "hover:bg-primary-color hover:text-white",
                                     "data-[active=true]:bg-primary-color data-[active=true]:text-white",
-                                    childActive ? "bg-primary-color text-white" : "",
+                                    childActive
+                                      ? "bg-primary-color text-white"
+                                      : "",
                                   ].join(" ")}
                                   data-active={childActive}
                                 >
@@ -143,7 +147,11 @@ export function VendorSidebar({ items }: { items: VendorSidebarItem[] }) {
                                     href={child.url}
                                     className="flex items-center gap-3"
                                   >
-                                    <span className={childActive ? "font-medium" : ""}>
+                                    <span
+                                      className={
+                                        childActive ? "font-medium" : ""
+                                      }
+                                    >
                                       {child.title}
                                     </span>
                                   </Link>
@@ -159,7 +167,10 @@ export function VendorSidebar({ items }: { items: VendorSidebarItem[] }) {
 
                 // ---------------- normal item ----------------
                 return (
-                  <SidebarMenuItem key={item.title} className="border rounded-sm">
+                  <SidebarMenuItem
+                    key={item.title}
+                    className="border rounded-sm"
+                  >
                     <SidebarMenuButton
                       asChild
                       className={[
@@ -170,7 +181,10 @@ export function VendorSidebar({ items }: { items: VendorSidebarItem[] }) {
                       ].join(" ")}
                       data-active={isActive}
                     >
-                      <Link href={item.url || "#"} className="flex items-center gap-3">
+                      <Link
+                        href={item.url || "#"}
+                        className="flex items-center gap-3"
+                      >
                         {typeof item.icon === "string" && item.icon ? (
                           <Image
                             src={item.icon}

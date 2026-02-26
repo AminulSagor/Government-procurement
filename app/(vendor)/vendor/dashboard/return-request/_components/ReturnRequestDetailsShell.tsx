@@ -3,7 +3,6 @@ import BreadcrumbBack from "./BreadcrumbBack";
 import RequestHeader from "./RequestHeader";
 import ProgressStepper from "./ProgressStepper";
 import ShipmentTrackingCard from "./ShipmentTrackingCard";
-import ShipmentTimeline from "./ShipmentTimeline";
 import ReturnRequestCard from "./ReturnRequestCard";
 import PaymentSummaryCard from "./PaymentSummaryCard";
 import OrderInfoCard from "./OrderInfoCard";
@@ -19,8 +18,8 @@ export default function ReturnRequestDetailsShell({
   data: ReturnRequestDetails;
 }) {
   return (
-    <main className="min-h-[calc(100vh-64px)] bg-[--color-off-white]">
-      <div className="mx-auto w-full  px-4 py-6 md:px-6 md:py-8">
+    <main>
+      <div className="mx-auto w-full space-y-7">
         {/* TOP HEADER (same row like your screenshot) */}
         <div className="flex flex-wrap items-center gap-2">
           <BreadcrumbBack
@@ -31,7 +30,10 @@ export default function ReturnRequestDetailsShell({
 
           <Divider />
 
-          <RequestHeader requestNo={data.requestNo} badgeBn={data.headerBadgeBn} />
+          <RequestHeader
+            requestNo={data.requestNo}
+            badgeBn={data.headerBadgeBn}
+          />
         </div>
 
         {/* STEPPER CARD */}
@@ -44,7 +46,6 @@ export default function ReturnRequestDetailsShell({
           {/* LEFT */}
           <div className="space-y-5">
             <ShipmentTrackingCard shipment={data.shipment} />
-            
           </div>
 
           {/* RIGHT */}

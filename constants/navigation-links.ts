@@ -47,7 +47,7 @@ export const vendorSidebarItems: SidebarItems[] = [
       { title: "Quotation Inbox", url: "/vendor/dashboard/quotation-inbox" },
       { title: "My Bids", url: "/vendor/dashboard/my-bids" },
       { title: "Active Orders", url: "/vendor/dashboard/active-orders" },
-      { title: "Return Requests", url: "/vendor/dashboard/return-requests" },
+      { title: "Return Requests", url: "/vendor/dashboard/return-request" },
     ],
   },
   { title: "Inventory", url: "/vendor/dashboard/inventory" },
