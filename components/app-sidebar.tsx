@@ -13,11 +13,13 @@ import {
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-import { SidebarItems } from "@/types/navigation";
+import type { SidebarItems } from "@/types/navigation";
 
 export function AppSidebar({ items }: { items: SidebarItems[] }) {
   const pathname = usePathname();
   const router = useRouter();
+
+  /* ---------------- active url ---------------- */
 
   const activeUrl = React.useMemo(() => {
     const matches = items
@@ -30,6 +32,8 @@ export function AppSidebar({ items }: { items: SidebarItems[] }) {
     return matches[0]?.url ?? "";
   }, [items, pathname]);
 
+  /* ---------------- logout ---------------- */
+
   const handleLogout = async () => {
     try {
       await fetch("/api/logout", { method: "POST" });
@@ -39,6 +43,23 @@ export function AppSidebar({ items }: { items: SidebarItems[] }) {
     localStorage.removeItem("refresh_token");
     router.push("/login");
   };
+
+  /* ---------------- render icon ---------------- */
+
+  const renderIcon = (icon: SidebarItems["icon"], title: string) => {
+    if (!icon) return null;
+
+    // image path
+    if (typeof icon === "string") {
+      return <Image src={icon} alt={title} width={22} height={22} />;
+    }
+
+    // component icon
+    const IconComponent = icon;
+    return <IconComponent className="h-5 w-5" />;
+  };
+
+  /* ---------------- ui ---------------- */
 
   return (
     <Sidebar>
@@ -56,41 +77,25 @@ export function AppSidebar({ items }: { items: SidebarItems[] }) {
                   >
                     <SidebarMenuButton
                       asChild
-                      className={[
-                        "px-2 py-2 rounded-sm",
-                        "hover:bg-primary-color hover:text-white",
-                        "data-[active=true]:bg-primary-color data-[active=true]:text-white",
-                        isActive ? "bg-primary-color text-white" : "",
-                      ].join(" ")}
-                      data-active={isActive}
+                      className={`px-2 py-2 rounded-sm ${
+                        isActive
+                          ? "bg-primary-color text-white"
+                          : "hover:bg-primary-color hover:text-white"
+                      }`}
                     >
                       {item.url ? (
                         <Link
                           href={item.url}
                           className="flex items-center gap-3"
                         >
-                          {item.icon && (
-                            <Image
-                              src={item.icon}
-                              alt={item.title}
-                              width={22}
-                              height={22}
-                            />
-                          )}
+                          {renderIcon(item.icon, item.title)}
                           <span className={isActive ? "font-medium" : ""}>
                             {item.title}
                           </span>
                         </Link>
                       ) : (
                         <div className="flex items-center gap-3 cursor-default">
-                          {item.icon && (
-                            <Image
-                              src={item.icon}
-                              alt={item.title}
-                              width={22}
-                              height={22}
-                            />
-                          )}
+                          {renderIcon(item.icon, item.title)}
                           <span className={isActive ? "font-medium" : ""}>
                             {item.title}
                           </span>
@@ -98,41 +103,42 @@ export function AppSidebar({ items }: { items: SidebarItems[] }) {
                       )}
                     </SidebarMenuButton>
 
-                    {/* Render children if any */}
-                    {item.children && item.children.length > 0 && (
+                    {/* Children */}
+                    {item.children?.length ? (
                       <SidebarMenu className="ml-4 mt-1 space-y-1">
-                        {item.children.map((child) => (
-                          <SidebarMenuItem key={child.title}>
-                            <SidebarMenuButton asChild>
-                              <Link
-                                href={child.url}
-                                className={`flex items-center gap-3 px-2 py-1 rounded-sm hover:bg-primary-color hover:text-white ${
-                                  activeUrl === child.url
-                                    ? "bg-primary-color text-white"
-                                    : ""
-                                }`}
-                              >
-                                {child.title}
-                              </Link>
-                            </SidebarMenuButton>
-                          </SidebarMenuItem>
-                        ))}
+                        {item.children.map((child) => {
+                          const childActive = activeUrl === child.url;
+
+                          return (
+                            <SidebarMenuItem key={child.title}>
+                              <SidebarMenuButton asChild>
+                                <Link
+                                  href={child.url}
+                                  className={`flex items-center gap-3 px-2 py-1 rounded-sm ${
+                                    childActive
+                                      ? "bg-primary-color text-white"
+                                      : "hover:bg-primary-color hover:text-white"
+                                  }`}
+                                >
+                                  {child.title}
+                                </Link>
+                              </SidebarMenuButton>
+                            </SidebarMenuItem>
+                          );
+                        })}
                       </SidebarMenu>
-                    )}
+                    ) : null}
                   </SidebarMenuItem>
                 );
               })}
 
               {/* Logout */}
               <SidebarMenuItem className="border rounded-sm">
-                <SidebarMenuButton
-                  asChild
-                  className="px-2 py-2 rounded-sm hover:bg-primary-color hover:text-white"
-                >
+                <SidebarMenuButton asChild>
                   <button
                     type="button"
                     onClick={handleLogout}
-                    className="flex items-center gap-3 w-full cursor-pointer"
+                    className="px-2 py-2 rounded-sm flex items-center gap-3 w-full hover:bg-primary-color hover:text-white"
                   >
                     <Image
                       src="/icons/logout-icon.png"
@@ -140,7 +146,7 @@ export function AppSidebar({ items }: { items: SidebarItems[] }) {
                       width={22}
                       height={22}
                     />
-                    <span>Logout</span>
+                    Logout
                   </button>
                 </SidebarMenuButton>
               </SidebarMenuItem>

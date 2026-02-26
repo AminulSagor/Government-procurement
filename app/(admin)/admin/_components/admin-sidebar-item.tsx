@@ -3,13 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { SidebarItems } from "@/types/navigation";
+import type { SidebarItems } from "@/types/navigation";
 
-export default function AdminSidebarItemRow({
-  item,
-}: {
-  item: SidebarItems;
-}) {
+export default function AdminSidebarItemRow({ item }: { item: SidebarItems }) {
   const pathname = usePathname();
   const isActive = pathname === item.url;
 
@@ -18,13 +14,24 @@ export default function AdminSidebarItemRow({
   const active = "bg-[#1F6F86] text-white border-[#1F6F86]";
   const normal = "bg-white text-gray-900 border-gray-200 hover:bg-gray-50";
 
+  const renderIcon = () => {
+    if (!item.icon) {
+      return <span className="inline-block h-[18px] w-[18px]" />;
+    }
+
+    // image path
+    if (typeof item.icon === "string") {
+      return <Image src={item.icon} alt={item.title} width={18} height={18} />;
+    }
+
+    // component icon
+    const IconComponent = item.icon;
+    return <IconComponent className="h-[18px] w-[18px]" />;
+  };
+
   const content = (
     <>
-      {item.icon ? (
-        <Image src={item.icon} alt="" width={18} height={18} />
-      ) : (
-        <span className="inline-block h-[18px] w-[18px]" />
-      )}
+      {renderIcon()}
       <span className="truncate">{item.title}</span>
     </>
   );
