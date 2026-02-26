@@ -1,17 +1,7 @@
-"use client";
-
-import React from "react";
-import AdminNavbar from "./_components/admin-navbar";
-
-import "../../globals.css";
-import {
-  SidebarProvider,
-  Sidebar,
-  SidebarContent,
-  SidebarInset,
-} from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { AdminSidebar } from "./_components/admin-sidebar";
 import { adminSidebarItems } from "./_data/admin-sidebar.data";
+import AdminNavbar from "./_components/admin-navbar";
 
 export default function AdminDashboardLayout({
   children,
@@ -20,20 +10,22 @@ export default function AdminDashboardLayout({
 }) {
   return (
     <SidebarProvider>
-      {/* ✅ Sidebar (controlled by SidebarTrigger automatically) */}
-      <Sidebar>
-        <SidebarContent>
-          <AdminSidebar items={adminSidebarItems} />
-        </SidebarContent>
-      </Sidebar>
+      {/* Whole page row */}
+      <div className="flex min-h-screen w-full">
+        {/* Sidebar */}
+        <AdminSidebar items={adminSidebarItems} />
 
-      {/* ✅ Main area */}
-      <SidebarInset>
-        <AdminNavbar />
-        <main className="py-16 bg-[#F8F9FA]">
-          {children}
-        </main>
-      </SidebarInset>
+        {/* Main column (VERY IMPORTANT: min-w-0) */}
+        <div className="flex min-w-0 flex-1 flex-col">
+          <header className="sticky top-0 z-50 w-full">
+            <AdminNavbar />
+          </header>
+
+          <main className="flex-1 min-w-0 overflow-x-hidden bg-[#F8FAFC] p-3 md:p-4 lg:p-5">
+            {children}
+          </main>
+        </div>
+      </div>
     </SidebarProvider>
   );
 }

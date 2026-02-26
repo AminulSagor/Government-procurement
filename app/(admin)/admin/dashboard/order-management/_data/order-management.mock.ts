@@ -50,7 +50,7 @@ export const REQ_CASE_MOCK: RequisitionCase = {
   reqId: "REQ-8892",
   officeName: "নোয়াখালী সদর উপজেলা",
   createdAt: "২০ মে, ২০২৪",
-  currentStep: "requisition",
+  currentStep: "payment_verify",
   steps: [
     { key: "requisition", label: "রিকুইজিশন", done: true },
     { key: "discussion", label: "আলোচনা", done: true },

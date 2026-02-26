@@ -35,16 +35,20 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <SidebarProvider>
-      <AppSidebar items={sidebarItems} />
+      <div className="flex min-h-screen w-full">
+        {/* Sidebar */}
+        <AppSidebar items={sidebarItems} />
 
-      <div className="min-h-screen w-full flex flex-col">
-        <header className="sticky top-0 z-50 w-full">
-          <Navbar />
-        </header>
+        {/* Main column (VERY IMPORTANT: min-w-0) */}
+        <div className="flex min-w-0 flex-1 flex-col">
+          <header className="sticky top-0 z-50 w-full">
+            <Navbar />
+          </header>
 
-        <main className="flex-1 w-full bg-[#F8FAFC] p-3 md:p-4 lg:p-5">
-          {children}
-        </main>
+          <main className="flex-1 min-w-0 overflow-x-hidden bg-[#F8FAFC] p-3 md:p-4 lg:p-5">
+            {children}
+          </main>
+        </div>
       </div>
     </SidebarProvider>
   );

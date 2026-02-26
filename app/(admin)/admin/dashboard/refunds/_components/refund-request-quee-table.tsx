@@ -11,6 +11,7 @@ import { REFUND_REQUEST_QUEUE_DATA } from "../_data/refund-request-queue-data";
 import Card from "@/components/cards/card";
 import SecondaryButton from "@/components/buttons/secondary-button";
 import PrimaryButton from "@/components/buttons/primary-button";
+import { useRouter } from "next/navigation";
 
 function formatBnMoney(amount: number) {
   const bn = new Intl.NumberFormat("bn-BD").format(amount);
@@ -149,6 +150,8 @@ export default function RefundRequestQueueTable() {
     return allRows.slice(start, start + limit);
   }, [page, allRows]);
 
+  const router = useRouter();
+
   return (
     <Card className="p-0 overflow-hidden">
       {/* header */}
@@ -205,7 +208,9 @@ export default function RefundRequestQueueTable() {
                 </td>
 
                 <td className="px-6 py-5">
-                  <p className="font-semibold text-black text-sm">{r.officeNameBn}</p>
+                  <p className="font-semibold text-black text-sm">
+                    {r.officeNameBn}
+                  </p>
                   {r.officeCodeBn ? (
                     <p className="text-xs text-medium-gray mt-1">
                       {r.officeCodeBn}
@@ -214,7 +219,9 @@ export default function RefundRequestQueueTable() {
                 </td>
 
                 <td className="px-6 py-5">
-                  <p className="font-semibold text-sm text-black">{r.vendorNameBn}</p>
+                  <p className="font-semibold text-sm text-black">
+                    {r.vendorNameBn}
+                  </p>
                 </td>
 
                 <td className="px-6 py-5">
@@ -237,7 +244,12 @@ export default function RefundRequestQueueTable() {
 
                 <td className="px-6 py-5">
                   <div className="flex justify-center">
-                    <IconButton label="View details" onClick={() => {}}>
+                    <IconButton
+                      label="View details"
+                      onClick={() => {
+                        router.push("/admin/dashboard/refunds/refund-queue/1");
+                      }}
+                    >
                       <Eye className="h-5 w-5 text-primary-color" />
                     </IconButton>
                   </div>
