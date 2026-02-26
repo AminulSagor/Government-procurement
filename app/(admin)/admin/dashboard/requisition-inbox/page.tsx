@@ -64,7 +64,7 @@ export default function RequisitionInboxPage() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-56px)] bg-[var(--color-off-white)] px-6 py-6">
+    <div className="space-y-7">
       {/* top bar: title left; advanced button right like image */}
       <div className="flex items-start justify-between gap-4">
         <RequisitionInboxHeader />

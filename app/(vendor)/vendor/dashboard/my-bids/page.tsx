@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-secondary">
+    <div>
       <div className="mx-auto max-w-7xl px-6 py-6 space-y-6">
         {/* top header */}
         <div className="flex items-start justify-between gap-4">

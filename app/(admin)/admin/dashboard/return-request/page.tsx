@@ -3,13 +3,21 @@
 import { useMemo, useState } from "react";
 import ReturnRequestHeader from "./_components/ReturnRequestHeader";
 import ReturnRequestStats from "./_components/ReturnRequestStats";
-import ReturnRequestFilters, { ReturnRequestFiltersValue } from "./_components/ReturnRequestFilters";
+import ReturnRequestFilters, {
+  ReturnRequestFiltersValue,
+} from "./_components/ReturnRequestFilters";
 import ReturnRequestTable from "./_components/ReturnRequestTable";
 import PaginationBar from "./_components/PaginationBar";
 
 import { RETURN_REQUESTS_DEMO } from "./_data/return-requests.demo";
-import { ReturnRequestStatus, ReturnRequestRow } from "./_types/return-request.types";
-import { applyReturnRequestFilters, getStatusCounts } from "./_utils/return-request.utils";
+import {
+  ReturnRequestStatus,
+  ReturnRequestRow,
+} from "./_types/return-request.types";
+import {
+  applyReturnRequestFilters,
+  getStatusCounts,
+} from "./_utils/return-request.utils";
 
 const PAGE_SIZE = 5;
 
@@ -46,38 +54,36 @@ export default function Page() {
   };
 
   return (
-    <main className="min-h-screen bg-off-white">
-      <div className="mx-auto w-full  px-4 py-6 md:px-6">
-        <ReturnRequestHeader />
-        <div className="mt-4">
-          <ReturnRequestStats
-            total={stats.total}
-            pendingReview={stats.pendingReview}
-            rejected={stats.rejected}
-          />
-        </div>
-
-        <div className="mt-4">
-          <ReturnRequestFilters value={filters} onChange={onChangeFilters} />
-        </div>
-
-        <div className="mt-4">
-          <ReturnRequestTable rows={paged} />
-        </div>
-
-        <div className="mt-3">
-          <PaginationBar
-            page={safePage}
-            totalPages={totalPages}
-            label={`Showing ${(safePage - 1) * PAGE_SIZE + 1} to ${Math.min(
-              safePage * PAGE_SIZE,
-              total
-            )} of ${total} results`}
-            onPrev={() => setPage((p) => Math.max(1, p - 1))}
-            onNext={() => setPage((p) => Math.min(totalPages, p + 1))}
-          />
-        </div>
+    <div className="mx-auto w-full">
+      <ReturnRequestHeader />
+      <div className="mt-4">
+        <ReturnRequestStats
+          total={stats.total}
+          pendingReview={stats.pendingReview}
+          rejected={stats.rejected}
+        />
       </div>
-    </main>
+
+      <div className="mt-4">
+        <ReturnRequestFilters value={filters} onChange={onChangeFilters} />
+      </div>
+
+      <div className="mt-4">
+        <ReturnRequestTable rows={paged} />
+      </div>
+
+      <div className="mt-3">
+        <PaginationBar
+          page={safePage}
+          totalPages={totalPages}
+          label={`Showing ${(safePage - 1) * PAGE_SIZE + 1} to ${Math.min(
+            safePage * PAGE_SIZE,
+            total,
+          )} of ${total} results`}
+          onPrev={() => setPage((p) => Math.max(1, p - 1))}
+          onNext={() => setPage((p) => Math.min(totalPages, p + 1))}
+        />
+      </div>
+    </div>
   );
 }

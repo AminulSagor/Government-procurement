@@ -8,7 +8,7 @@ import OrdersStatsRow from "./_components/OrdersStatsRow";
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-secondary">
+    <div>
       <div className="mx-auto max-w-7xl px-6 py-6 space-y-6">
         <OrdersHeader />
         <OrdersStatsRow />

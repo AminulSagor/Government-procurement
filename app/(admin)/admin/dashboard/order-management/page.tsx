@@ -7,7 +7,7 @@ import OrderManagementHeader from "@/app/(admin)/admin/dashboard/order-managemen
 
 export default function OrderManagementPage() {
   return (
-    <div className="space-y-6 p-6 bg-[#F8F9FA]">
+    <div className="space-y-7">
       <OrderManagementHeader />
       <OrdersSummaryCards rows={ORDER_LIST_MOCK} />
 

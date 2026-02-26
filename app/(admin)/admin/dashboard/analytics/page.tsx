@@ -6,7 +6,12 @@ import ProfitLineChart from "./_components/profit-line-chart";
 import ProfitTable from "./_components/profit-table";
 import CashSettlementCard from "./_components/cash-settlement-card";
 
-import { demoAnalyticsHeader, demoChart, demoStats, demoTable } from "./_data/analytics.demo";
+import {
+  demoAnalyticsHeader,
+  demoChart,
+  demoStats,
+  demoTable,
+} from "./_data/analytics.demo";
 import type { AnalyticsFilters } from "./_types/analytics.types";
 import { useMemo, useState } from "react";
 
@@ -26,8 +31,8 @@ export default function AnalyticsPage() {
   }, []);
 
   return (
-    <div className="min-h-[calc(100vh-56px)] bg-[var(--color-off-white)]">
-      <div className="mx-auto w-full max-w-[1200px] px-5 py-6">
+    <div>
+      <div className="mx-auto w-full max-w-300">
         <AnalyticsHeader data={demoAnalyticsHeader} />
 
         <div className="mt-6">

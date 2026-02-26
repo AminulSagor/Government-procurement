@@ -7,11 +7,16 @@ import FiltersBar from "./_components/filters-bar";
 import ReportsTable from "./_components/reports-table";
 import Pagination from "./_components/pagination";
 
-import { demoBudgetRows, demoBudgetStats, demoInitialFilters } from "./_data/budget-report.demo";
+import {
+  demoBudgetRows,
+  demoBudgetStats,
+  demoInitialFilters,
+} from "./_data/budget-report.demo";
 import { BudgetFiltersState } from "./_types/budget-report.types";
 
 export default function BudgetReportManagementPage() {
-  const [filters, setFilters] = useState<BudgetFiltersState>(demoInitialFilters);
+  const [filters, setFilters] =
+    useState<BudgetFiltersState>(demoInitialFilters);
 
   const rows = useMemo(() => {
     // demo: keep as-is (later you can filter by officeCode/hierarchy/date range)
@@ -19,7 +24,7 @@ export default function BudgetReportManagementPage() {
   }, []);
 
   return (
-    <div className="p-5 space-y-4 bg-[var(--color-off-white)] min-h-[calc(100vh-56px)]">
+    <div className="space-y-4">
       <PageHeader />
 
       <StatCards items={demoBudgetStats} />

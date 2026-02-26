@@ -74,7 +74,7 @@ export default function IbasCodesPage() {
   const [openNewCode, setOpenNewCode] = useState(false);
 
   return (
-    <div className="space-y-5 p-6">
+    <div className="space-y-7">
       <IbasHeader onOpenNewCode={() => setOpenNewCode(true)} />
 
       <IbasTabs value={tab} onChange={setTab} />

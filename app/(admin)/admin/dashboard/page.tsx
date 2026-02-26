@@ -17,7 +17,7 @@ import {
 export default function AdminDashboardPage() {
   const [openAdvanced, setOpenAdvanced] = useState(false);
   return (
-    <div className="px-2 py-4 md:px-3 md:py-6">
+    <div className="space-y-7">
       <div className="mx-auto w-full">
         <DashboardHeader data={demoDashboardHeader} />
 

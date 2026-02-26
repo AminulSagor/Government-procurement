@@ -36,7 +36,7 @@ export default function LiveActivityFeedPageView({ demo }: { demo: LAFDemo }) {
   const slice = filtered.slice((safePage - 1) * pageSize, safePage * pageSize);
 
   return (
-    <div className="px-6 py-6">
+    <div className="space-y-7">
       {/* Card container */}
       <div className="rounded-2xl border border-[rgba(100,116,139,0.18)] bg-white shadow-sm">
         <LAFHeader

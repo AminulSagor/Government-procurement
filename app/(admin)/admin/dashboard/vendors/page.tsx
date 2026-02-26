@@ -50,7 +50,7 @@ export default function VendorsPage() {
   const onDelete = (id: string) => console.log("delete", id);
 
   return (
-    <div className="space-y-5 p-5">
+    <div className="space-y-7">
       <VendorsHeader />
 
       <VendorsStats stats={demoVendorStats} />

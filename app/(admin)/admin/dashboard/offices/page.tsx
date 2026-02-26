@@ -4,7 +4,7 @@ import OfficeManagementToolbar from "@/app/(admin)/admin/dashboard/offices/_comp
 
 const page = () => {
   return (
-    <div className="space-y-6 p-6 bg-[#F8F9FA] min-h-screen ">
+    <div className="space-y-7">
       <OfficeManagementHeader />
       <OfficeManagementToolbar />
       <OfficeManagementTable />

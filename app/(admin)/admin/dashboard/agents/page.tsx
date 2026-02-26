@@ -15,7 +15,6 @@ import {
   statusOptions,
 } from "./_data/agents.demo";
 import type {
-  Agent,
   AgentFilters,
   AgentStatus,
   AgentsMeta,
@@ -78,11 +77,10 @@ export default function AgentsPage() {
   };
 
   return (
-    <div className="px-6 py-6">
+    <div className="space-y-7">
       <AgentsHeader
         titleBn="এরিয়া ম্যানেজার ও এজেন্ট তালিকা"
         subtitleEn="Manage all field personnel and their geographical task allocations across the entire platform."
-        onAdd={() => console.log("add agent")}
       />
 
       <div className="mt-5">

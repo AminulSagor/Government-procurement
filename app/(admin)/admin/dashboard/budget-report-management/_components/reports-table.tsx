@@ -1,11 +1,8 @@
 import Card from "@/components/cards/card";
 import { FileText, Download } from "lucide-react";
 
-
-
 import StatusPill from "./status-pill";
 import { BudgetReportRow } from "../_types/budget-report.types";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 function moneyBDT(n: number) {
@@ -71,9 +68,8 @@ export default function ReportsTable({ rows }: { rows: BudgetReportRow[] }) {
 
                 <td className="px-4 py-4">
                   <div className="flex items-center justify-end gap-3">
-                    <td className="px-4 py-4">
+                    <div className="px-4 py-4">
                       <div className="flex items-center justify-end gap-3">
-
                         {/* ---------- MAIN BUTTON ---------- */}
                         {r.status === "Approved" ? (
                           // OUTLINE BUTTON (Approved)
@@ -81,7 +77,6 @@ export default function ReportsTable({ rows }: { rows: BudgetReportRow[] }) {
                             href={`/admin/dashboard/budget-report-management/${r.id}`}
                           >
                             <button
-
                               className="
           h-10 px-6
           rounded-xl
@@ -131,11 +126,9 @@ export default function ReportsTable({ rows }: { rows: BudgetReportRow[] }) {
                           </button>
                         )}
                       </div>
-                    </td>
-
+                    </div>
                   </div>
                 </td>
-
               </tr>
             ))}
           </tbody>

@@ -5,7 +5,7 @@ import RefundsReasons from "@/app/(admin)/admin/dashboard/refunds/_components/re
 
 const page = () => {
   return (
-    <div className="space-y-6 p-6 bg-[#F8F9FA] min-h-screen">
+    <div className="space-y-7">
       <RefundStatsOverview />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_340px] xl:grid-cols-[1fr_450px] gap-4 items-start">
         <RefundsReasons />
