@@ -1,7 +1,7 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AdminSidebar } from "./_components/admin-sidebar";
-import { adminSidebarItems } from "./_data/admin-sidebar.data";
 import AdminNavbar from "./_components/admin-navbar";
+import { adminSidebarItems } from "@/constants/navigation-links";
 
 export default function AdminDashboardLayout({
   children,

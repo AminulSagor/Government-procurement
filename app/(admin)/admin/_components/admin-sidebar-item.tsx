@@ -3,12 +3,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { AdminSidebarItem } from "../_types/admin-sidebar.types";
+import { SidebarItems } from "@/types/navigation";
 
 export default function AdminSidebarItemRow({
   item,
 }: {
-  item: AdminSidebarItem;
+  item: SidebarItems;
 }) {
   const pathname = usePathname();
   const isActive = pathname === item.url;

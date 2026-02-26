@@ -1,4 +1,3 @@
-// app/(admin)/admin/_components/admin-navbar.tsx
 "use client";
 
 import Logo from "@/components/main-logo";
@@ -8,7 +7,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import NotificationPopup from "./notifications/notification-popup";
+import { adminNavLinks } from "@/constants/navigation-links";
 
+// ----- COMPONENT -----
 export default function AdminNavbar() {
   const [openNoti, setOpenNoti] = useState(false);
   const bellRef = useRef<HTMLButtonElement>(null);
@@ -25,28 +26,16 @@ export default function AdminNavbar() {
 
         {/* CENTER */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-          <Link href="/admin/dashboard" className="hover:opacity-90">
-            ড্যাশবোর্ড
-          </Link>
-          <Link
-            href="/admin/dashboard/requisition-inbox"
-            className="hover:opacity-90"
-          >
-            চাহিদাপত্র (Requisition)
-          </Link>
-          <Link
-            href="/admin/dashboard/order-management"
-            className="hover:opacity-90"
-          >
-            অর্ডার (Orders)
-          </Link>
-          <Link href="/admin/dashboard/analytics" className="hover:opacity-90">
-            এনালিটিক্স (Analytics)
-          </Link>
+          {adminNavLinks.map((item) => (
+            <Link key={item.href} href={item.href} className="hover:opacity-90">
+              {item.label}
+            </Link>
+          ))}
         </nav>
 
         {/* RIGHT */}
         <div className="flex items-center gap-4">
+          {/* Notification Bell */}
           <div className="relative">
             <button
               ref={bellRef}
@@ -65,6 +54,7 @@ export default function AdminNavbar() {
             />
           </div>
 
+          {/* Profile */}
           <div className="flex items-center gap-2">
             <span className="text-sm">এডমিন</span>
             <div className="h-8 w-8 rounded-full overflow-hidden bg-white/20 flex items-center justify-center">

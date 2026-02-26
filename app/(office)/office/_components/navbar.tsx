@@ -8,15 +8,7 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Bell, ShoppingCart } from "lucide-react";
 import Logo from "@/components/main-logo";
 import CartDrawer from "@/app/(office)/office/_components/cart";
-
-type NavItem = { label: string; href: string };
-
-const navItems: NavItem[] = [
-  { label: "ড্যাশবোর্ড", href: "/office/dashboard" },
-  { label: "ক্রয় (Procurement)", href: "/office/dashboard/procurement" },
-  { label: "রিপোর্ট (Reports)", href: "/office/dashboard/report&audit" },
-  { label: "অর্ডার (Orders)", href: "/office/dashboard/order-management" },
-];
+import { officeNavItems } from "@/constants/navigation-links";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -38,7 +30,7 @@ export default function Navbar() {
         {/* CENTER (scrolls instead of breaking layout) */}
         <nav className="hidden lg:block flex-1 min-w-0">
           <div className="flex items-center justify-center gap-5 xl:gap-7 2xl:gap-10 text-sm font-medium overflow-x-auto whitespace-nowrap no-scrollbar">
-            {navItems.map((item) => (
+            {officeNavItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}

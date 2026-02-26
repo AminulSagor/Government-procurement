@@ -1,11 +1,8 @@
-"use client";
-
-import React from "react";
 import { Sidebar, SidebarContent } from "@/components/ui/sidebar";
 import AdminSidebarItemRow from "./admin-sidebar-item";
-import { AdminSidebarItem } from "../_types/admin-sidebar.types";
+import { SidebarItems } from "@/types/navigation";
 
-export function AdminSidebar({ items }: { items: AdminSidebarItem[] }) {
+export function AdminSidebar({ items }: { items: SidebarItems[] }) {
   return (
     <Sidebar>
       <SidebarContent className="bg-white px-3 py-4">

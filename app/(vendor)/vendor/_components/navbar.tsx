@@ -8,15 +8,7 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Bell, ShoppingCart } from "lucide-react";
 import Logo from "@/components/main-logo";
 import CartDrawer from "@/app/(office)/office/_components/cart";
-
-type NavItem = { label: string; href: string };
-
-const navItems: NavItem[] = [
-  { label: "ড্যাশবোর্ড", href: "/vendor/dashboard" },
-  { label: "কোটেশন (Quotation)", href: "/vendor/dashboard/quotation" },
-  { label: "ইনভেন্টরি (Inventory)", href: "/vendor/dashboard/inventory" },
-  { label: "অর্ডার (Orders)", href: "/vendor/dashboard/orders" },
-];
+import { vendorNavItems } from "@/constants/navigation-links";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -25,7 +17,6 @@ export default function Navbar() {
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
 
-  //handle shopping cart click
   const handleCart = () => {
     setOpen(true);
   };
@@ -40,7 +31,7 @@ export default function Navbar() {
         </div>
 
         <nav className="hidden lg:flex items-center gap-8 2xl:gap-12  text-sm font-medium">
-          {navItems.map((item) => (
+          {vendorNavItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
