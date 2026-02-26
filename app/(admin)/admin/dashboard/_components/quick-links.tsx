@@ -2,7 +2,6 @@ import Card from "@/components/cards/card";
 import Link from "next/link";
 import { QuickLinkData } from "../_types/admin-dashboard.types";
 
-
 export default function QuickLinks({ items }: { items: QuickLinkData[] }) {
   return (
     <Card className="border border-gray-200 bg-white p-4">
@@ -16,7 +15,7 @@ export default function QuickLinks({ items }: { items: QuickLinkData[] }) {
             className="flex items-center justify-between rounded-lg border border-gray-200 px-3 py-2 hover:bg-gray-50"
           >
             <div className="flex items-center gap-2">
-              <span className="text-sm">{it.iconText}</span>
+              <span className="text-sm">{it.iconKey}</span>
               <span className="text-sm text-gray-800">{it.labelBn}</span>
             </div>
 
@@ -30,7 +29,10 @@ export default function QuickLinks({ items }: { items: QuickLinkData[] }) {
       </div>
 
       <div className="mt-3">
-        <Link href="/admin/dashboard/requisition-inbox" className="text-sm font-medium text-rose-600 hover:underline">
+        <Link
+          href="/admin/dashboard/requisition-inbox"
+          className="text-sm font-medium text-rose-600 hover:underline"
+        >
           সব দেখুন →
         </Link>
       </div>

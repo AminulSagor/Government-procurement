@@ -1,11 +1,18 @@
-import type { Agent, AgentStats, AgentsMeta, Option } from "../_types/agents.types";
+import type {
+  Agent,
+  AgentStats,
+  AgentsMeta,
+  Option,
+} from "../_types/agents.types";
 
+// ----- DEMO STATS -----
 export const demoStats: AgentStats = {
   totalAgents: 64,
   activeAgents: 120, // screenshot অনুযায়ী
   deliveries: 450,
 };
 
+// ----- DEMO META -----
 export const demoMeta: AgentsMeta = {
   total: 64,
   page: 1,
@@ -15,6 +22,7 @@ export const demoMeta: AgentsMeta = {
   hasPrevPage: false,
 };
 
+// ----- FILTER OPTIONS -----
 export const districtOptions: Option[] = [
   { label: "District", value: "all" },
   { label: "নোয়াখালী সদর", value: "নোয়াখালী সদর" },
@@ -29,6 +37,7 @@ export const statusOptions: Option[] = [
   { label: "Inactive", value: "inactive" },
 ];
 
+// ----- DEMO AGENTS -----
 export const demoAgents: Agent[] = [
   {
     id: "agt_1",
@@ -70,25 +79,33 @@ export const demoAgents: Agent[] = [
   // extra rows to make pagination feel real
   ...Array.from({ length: 61 }, (_, i) => {
     const n = i + 4;
+
+    // Assign role based on index
+    const role =
+      n % 3 === 0
+        ? "Delivery Hero"
+        : n % 2 === 0
+          ? "Field Agent"
+          : "Senior Field Executive";
+
+    // Assign district cyclically
+    const district =
+      n % 4 === 0
+        ? "Begumganj"
+        : n % 4 === 1
+          ? "নোয়াখালী সদর"
+          : n % 4 === 2
+            ? "Chatkhil"
+            : "Sonaimuri";
+
     return {
       id: `agt_${n}`,
       name: `Agent ${n}`,
-      role: (n % 3 === 0
-        ? "Delivery Hero"
-        : n % 2 === 0
-        ? "Field Agent"
-        : "Senior Field Executive") as const,
+      role,
       agentCode: `AGT-2025-${String(n).padStart(3, "0")}`,
-      district:
-        n % 4 === 0
-          ? "Begumganj"
-          : n % 4 === 1
-          ? "নোয়াখালী সদর"
-          : n % 4 === 2
-          ? "Chatkhil"
-          : "Sonaimuri",
+      district,
       phone: "+৮৮০ ১৭০০-০০০০০০",
-      totalOrdersHandled: 20 + (n * 7) % 900,
+      totalOrdersHandled: 20 + ((n * 7) % 900),
       performance: n % 11 === 0 ? "high" : "none",
       status: n % 5 === 0 ? "inactive" : "active",
       avatarUrl: "",

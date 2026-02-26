@@ -12,15 +12,15 @@ export function formatBdt(n: number) {
 export function getStatusCounts(rows: ReturnRequestRow[]) {
   const total = rows.length;
 
-  const pendingReview = rows.filter((r) => r.status === "PENDING_REVIEW").length;
-  const rejected = rows.filter((r) => r.status === "REJECTED").length;
+  const pendingReview = rows.filter((r) => r.status === "pending").length;
+  const rejected = rows.filter((r) => r.status === "denied").length;
 
   return { total, pendingReview, rejected };
 }
 
 export function applyReturnRequestFilters(
   rows: ReturnRequestRow[],
-  filters: ReturnRequestFiltersValue
+  filters: ReturnRequestFiltersValue,
 ) {
   const q = filters.query.trim().toLowerCase();
 

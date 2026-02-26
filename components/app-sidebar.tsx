@@ -10,10 +10,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { SidebarItems } from "@/types/types";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
+import { SidebarItems } from "@/types/navigation";
 
 export function AppSidebar({ items }: { items: SidebarItems[] }) {
   const pathname = usePathname();
@@ -21,8 +21,11 @@ export function AppSidebar({ items }: { items: SidebarItems[] }) {
 
   const activeUrl = React.useMemo(() => {
     const matches = items
-      .filter((it) => pathname === it.url || pathname.startsWith(`${it.url}/`))
-      .sort((a, b) => b.url.length - a.url.length);
+      .filter(
+        (it) =>
+          it.url && (pathname === it.url || pathname.startsWith(`${it.url}/`)),
+      )
+      .sort((a, b) => (b.url?.length ?? 0) - (a.url?.length ?? 0));
 
     return matches[0]?.url ?? "";
   }, [items, pathname]);
@@ -38,8 +41,8 @@ export function AppSidebar({ items }: { items: SidebarItems[] }) {
   };
 
   return (
-    <Sidebar className="">
-      <SidebarContent className="bg-white px-2 w">
+    <Sidebar>
+      <SidebarContent className="bg-white px-2">
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-2 mt-3">
@@ -61,27 +64,66 @@ export function AppSidebar({ items }: { items: SidebarItems[] }) {
                       ].join(" ")}
                       data-active={isActive}
                     >
-                      <Link href={item.url} className="flex items-center gap-3">
-                        {typeof item.icon === "string" && item.icon ? (
-                          <Image
-                            src={item.icon}
-                            alt={item.title}
-                            width={22}
-                            height={22}
-                          />
-                        ) : typeof item.icon === "function" ? (
-                          <item.icon className="h-5 w-5" />
-                        ) : null}
-
-                        <span className={isActive ? "font-medium" : ""}>
-                          {item.title}
-                        </span>
-                      </Link>
+                      {item.url ? (
+                        <Link
+                          href={item.url}
+                          className="flex items-center gap-3"
+                        >
+                          {item.icon && (
+                            <Image
+                              src={item.icon}
+                              alt={item.title}
+                              width={22}
+                              height={22}
+                            />
+                          )}
+                          <span className={isActive ? "font-medium" : ""}>
+                            {item.title}
+                          </span>
+                        </Link>
+                      ) : (
+                        <div className="flex items-center gap-3 cursor-default">
+                          {item.icon && (
+                            <Image
+                              src={item.icon}
+                              alt={item.title}
+                              width={22}
+                              height={22}
+                            />
+                          )}
+                          <span className={isActive ? "font-medium" : ""}>
+                            {item.title}
+                          </span>
+                        </div>
+                      )}
                     </SidebarMenuButton>
+
+                    {/* Render children if any */}
+                    {item.children && item.children.length > 0 && (
+                      <SidebarMenu className="ml-4 mt-1 space-y-1">
+                        {item.children.map((child) => (
+                          <SidebarMenuItem key={child.title}>
+                            <SidebarMenuButton asChild>
+                              <Link
+                                href={child.url}
+                                className={`flex items-center gap-3 px-2 py-1 rounded-sm hover:bg-primary-color hover:text-white ${
+                                  activeUrl === child.url
+                                    ? "bg-primary-color text-white"
+                                    : ""
+                                }`}
+                              >
+                                {child.title}
+                              </Link>
+                            </SidebarMenuButton>
+                          </SidebarMenuItem>
+                        ))}
+                      </SidebarMenu>
+                    )}
                   </SidebarMenuItem>
                 );
               })}
 
+              {/* Logout */}
               <SidebarMenuItem className="border rounded-sm">
                 <SidebarMenuButton
                   asChild
@@ -93,8 +135,8 @@ export function AppSidebar({ items }: { items: SidebarItems[] }) {
                     className="flex items-center gap-3 w-full cursor-pointer"
                   >
                     <Image
-                      src={"/icons/logout-icon.png"}
-                      alt={"logout-image"}
+                      src="/icons/logout-icon.png"
+                      alt="logout"
                       width={22}
                       height={22}
                     />
