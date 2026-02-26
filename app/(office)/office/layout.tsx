@@ -18,7 +18,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     { title: "Procurement", url: "/office/dashboard/procurement", icon: "" },
     {
       title: "Order & Delivery",
-      url: "/office/dashboard/order&delivery",
+      url: "/office/dashboard/order-management",
       icon: "",
     },
     {

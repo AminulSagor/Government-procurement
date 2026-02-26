@@ -1,3 +1,7 @@
+import PrimaryButton from "@/components/buttons/primary-button";
+import { Plus } from "lucide-react";
+import Link from "next/link";
+
 function PageHeader() {
   return (
     <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
@@ -9,6 +13,16 @@ function PageHeader() {
           আপনার অফিসের জন্য সাম্প্রতিক সকল বাজেট একত্রে দেখুন ও পরিচালনা করুন।
         </p>
       </div>
+
+      <PrimaryButton>
+        <Link
+          href={"/office/dashboard/budget-management/create"}
+          className="flex items-center gap-2 justify-center"
+        >
+          <Plus className="mr-2 h-4 w-4" />
+          <span>নতুন রিপোর্ট তৈরি করুন</span>
+        </Link>
+      </PrimaryButton>
     </div>
   );
 }

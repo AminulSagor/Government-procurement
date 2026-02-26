@@ -1,11 +1,9 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AdminSidebarItem } from "../_types/admin-sidebar.types";
-
 
 export default function AdminSidebarItemRow({
   item,
@@ -13,9 +11,7 @@ export default function AdminSidebarItemRow({
   item: AdminSidebarItem;
 }) {
   const pathname = usePathname();
-
-  const isActive =
-    item.url && (pathname === item.url || pathname.startsWith(item.url + "/"));
+  const isActive = pathname === item.url;
 
   const base =
     "w-full flex items-center gap-3 rounded-md border px-3 py-3 text-sm transition";

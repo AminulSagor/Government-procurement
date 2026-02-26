@@ -9,18 +9,15 @@ import RightPanel from "./_components/right-panel";
 import StatsStrip from "./_components/stats-strip";
 import {
   demoDashboardHeader,
-  demoBudgetStats,
-  demoFilterState,
   demoDepartments,
   demoPendingActions,
   demoQuickLinks,
 } from "./_data/admin-dashboard.data";
 
-
 export default function AdminDashboardPage() {
- const [openAdvanced, setOpenAdvanced] = useState(false);
+  const [openAdvanced, setOpenAdvanced] = useState(false);
   return (
-    <div className="px-2 py-4 md:px-3 md:py-6" >
+    <div className="px-2 py-4 md:px-3 md:py-6">
       <div className="mx-auto w-full">
         <DashboardHeader data={demoDashboardHeader} />
 
@@ -28,16 +25,13 @@ export default function AdminDashboardPage() {
           {/* LEFT MAIN */}
           <div className="col-span-12 lg:col-span-9 space-y-4">
             <StatsStrip />
-             <DashboardFilters onOpenAdvanced={() => setOpenAdvanced(true)} />
+            <DashboardFilters onOpenAdvanced={() => setOpenAdvanced(true)} />
             <DepartmentsTable rows={demoDepartments} />
           </div>
 
           {/* RIGHT PANEL */}
           <div className="col-span-12 lg:col-span-3">
-            <RightPanel
-              pending={demoPendingActions}
-              links={demoQuickLinks}
-            />
+            <RightPanel pending={demoPendingActions} links={demoQuickLinks} />
           </div>
 
           {/* Dialog */}
@@ -47,7 +41,6 @@ export default function AdminDashboardPage() {
             onApply={() => setOpenAdvanced(false)}
             onReset={() => setOpenAdvanced(false)}
           />
-        
         </div>
       </div>
     </div>

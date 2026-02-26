@@ -1,4 +1,3 @@
-// components/orders/OrderList.tsx
 import OrderCard from "./OrderCard";
 
 export default function OrderList() {

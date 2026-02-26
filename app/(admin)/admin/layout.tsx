@@ -13,7 +13,6 @@ import {
 import { AdminSidebar } from "./_components/admin-sidebar";
 import { adminSidebarItems } from "./_data/admin-sidebar.data";
 
-
 export default function AdminDashboardLayout({
   children,
 }: {
@@ -31,7 +30,9 @@ export default function AdminDashboardLayout({
       {/* ✅ Main area */}
       <SidebarInset>
         <AdminNavbar />
-        <main>{children}</main>
+        <main className="py-16 bg-[#F8F9FA]">
+          {children}
+        </main>
       </SidebarInset>
     </SidebarProvider>
   );

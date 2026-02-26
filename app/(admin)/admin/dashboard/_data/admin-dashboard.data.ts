@@ -1,12 +1,18 @@
-import { DashboardFilterState, DashboardHeaderData, DepartmentRowData, PendingActionsData, QuickLinkData, StatCardData } from "../_types/admin-dashboard.types";
-
+import {
+  DashboardFilterState,
+  DashboardHeaderData,
+  DepartmentRowData,
+  PendingActionsData,
+  QuickLinkData,
+  StatCardData,
+} from "../_types/admin-dashboard.types";
 
 export const demoDashboardHeader: DashboardHeaderData = {
   titleBn: "ড্যাশবোর্ড",
-  subtitle: "Monitor budget allocation, expenditure, and utilization across all departments.",
+  subtitle:
+    "Monitor budget allocation, expenditure, and utilization across all departments.",
   ctaLabel: "নতুন বাজেট অনুমোদন",
 };
-
 
 export const demoBudgetStats: StatCardData[] = [
   {
@@ -40,7 +46,6 @@ export const demoBudgetStats: StatCardData[] = [
     note: "Balance available",
   },
 ];
-
 
 export const demoFilterState: DashboardFilterState = {
   q: "",
@@ -112,8 +117,26 @@ export const demoPendingActions: PendingActionsData = {
   ],
 };
 
-export const demoQuickLinks = [
-  { href: "/x", labelBn: "ভেন্ডর যাচাই", badge: 5, iconKey: "vendor", tone: "orange" },
-  { href: "/y", labelBn: "ব্র্যান্ড রিপোর্ট যাচাই", badge: 4, iconKey: "dealer", tone: "blue" },
-  { href: "/z", labelBn: "পেমেন্ট ক্লিয়ারেন্স", badge: 3, iconKey: "payment", tone: "green" },
+export const demoQuickLinks: QuickLinkData[] = [
+  {
+    href: "/x",
+    labelBn: "ভেন্ডর যাচাই",
+    badge: 5,
+    iconKey: "vendor",
+    tone: "orange",
+  },
+  {
+    href: "/y",
+    labelBn: "ব্র্যান্ড রিপোর্ট যাচাই",
+    badge: 4,
+    iconKey: "dealer",
+    tone: "blue",
+  },
+  {
+    href: "/z",
+    labelBn: "পেমেন্ট ক্লিয়ারেন্স",
+    badge: 3,
+    iconKey: "payment",
+    tone: "green",
+  },
 ];

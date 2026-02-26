@@ -2,10 +2,8 @@
 
 import * as React from "react";
 
-import { Button } from "@/components/ui/button";
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CheckCircle2, DraftingCompass, Plus, Send } from "lucide-react";
+import { CheckCircle2, DraftingCompass } from "lucide-react";
 import { REPORTS } from "./data";
 import PageHeader from "./page-header";
 import PaginationBar from "./pagination-bar";
@@ -13,7 +11,6 @@ import ReportsTable from "./report-table";
 import ReportsCards from "./reports-cards";
 import StatCard from "./stat-card";
 import Toolbar from "./toolbar";
-import Link from "next/link";
 
 export default function BudgetReports() {
   const [q, setQ] = React.useState("");
@@ -73,21 +70,6 @@ export default function BudgetReports() {
 
         <Card className="mt-4">
           <CardHeader className="space-y-2 pb-3">
-            <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-              <CardTitle className="text-base md:text-lg">
-                রিপোর্ট তালিকা
-              </CardTitle>
-
-              <Button variant={"primary"} className="w-full md:w-auto" asChild>
-                <Link href={"/office/dashboard/budget-management/create"}>
-                  <span className="flex items-center">
-                    <Plus className="mr-2 h-4 w-4" />
-                    নতুন রিপোর্ট তৈরি করুন
-                  </span>
-                </Link>
-              </Button>
-            </div>
-
             <Toolbar
               q={q}
               onChangeQ={setQ}
