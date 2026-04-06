@@ -8,31 +8,48 @@ type Props = {
   to?: number;
   page?: number;
   totalPages?: number;
+  onPageChange?: (page: number) => void;
 };
 
 export default function PaginationBar({
-  total = 24,
-  from = 1,
-  to = 6,
+  total = 0,
+  from = 0,
+  to = 0,
   page = 1,
-  totalPages = 6,
+  totalPages = 1,
+  onPageChange,
 }: Props) {
-  const pages = [1, 2, 3, "...", totalPages];
+  const buildPages = () => {
+    if (totalPages <= 5) {
+      return Array.from({ length: totalPages }, (_, index) => index + 1);
+    }
+
+    if (page <= 3) {
+      return [1, 2, 3, "...", totalPages];
+    }
+
+    if (page >= totalPages - 2) {
+      return [1, "...", totalPages - 2, totalPages - 1, totalPages];
+    }
+
+    return [1, "...", page, "...", totalPages];
+  };
+
+  const pages = buildPages();
 
   return (
     <div className="flex items-center justify-between gap-3">
-      {/* left text */}
       <p className="text-xs font-semibold text-gray/60">
         {total}টি ফলাফলের মধ্যে {from} থেকে {to}টি দেখানো হচ্ছে
       </p>
 
-      {/* right segmented pager */}
       <div className="inline-flex overflow-hidden rounded-lg border border-gray/15 bg-white">
-        {/* prev */}
         <button
           type="button"
-          className="h-9 w-10 grid place-items-center border-r border-gray/15 text-gray/60 hover:bg-secondary"
+          onClick={() => page > 1 && onPageChange?.(page - 1)}
+          className="grid h-9 w-10 place-items-center border-r border-gray/15 text-gray/60 hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-50"
           aria-label="Previous"
+          disabled={page <= 1}
         >
           ‹
         </button>
@@ -45,7 +62,7 @@ export default function PaginationBar({
             return (
               <div
                 key={`dots-${idx}`}
-                className="h-9 w-10 grid place-items-center border-r border-gray/15 text-xs font-bold text-gray/40"
+                className="grid h-9 w-10 place-items-center border-r border-gray/15 text-xs font-bold text-gray/40"
               >
                 ...
               </div>
@@ -56,8 +73,9 @@ export default function PaginationBar({
             <button
               key={`p-${p}`}
               type="button"
+              onClick={() => typeof p === "number" && onPageChange?.(p)}
               className={[
-                "h-9 w-10 grid place-items-center border-r border-gray/15 text-xs font-extrabold",
+                "grid h-9 w-10 place-items-center border-r border-gray/15 text-xs font-extrabold",
                 isActive
                   ? "bg-primary-color text-white"
                   : "text-gray/70 hover:bg-secondary",
@@ -68,11 +86,12 @@ export default function PaginationBar({
           );
         })}
 
-        {/* next */}
         <button
           type="button"
-          className="h-9 w-10 grid place-items-center text-gray/60 hover:bg-secondary"
+          onClick={() => page < totalPages && onPageChange?.(page + 1)}
+          className="grid h-9 w-10 place-items-center text-gray/60 hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-50"
           aria-label="Next"
+          disabled={page >= totalPages}
         >
           ›
         </button>
