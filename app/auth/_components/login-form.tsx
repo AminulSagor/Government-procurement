@@ -5,8 +5,8 @@ import { Eye, EyeOff, Mail, Lock, ArrowRight, Shield } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { authPath, detectPanel } from "@/helpers/helper";
+import { setToken, setUserRole } from "@/utils/cookie.utils";
 import { loginUser } from "@/service/auth/auth.service";
-import { setAuthCookies } from "@/utils/auth-cookie";
 
 type LoginFormProps = {
   title: string;
@@ -20,6 +20,13 @@ type LoginFormProps = {
   defaultEmail?: string;
 };
 
+const getDashboardPathByRole = (role: string) => {
+  if (role === "admin") return "/admin/dashboard";
+  if (role === "office") return "/office/dashboard";
+  if (role === "vendor") return "/vendor/dashboard";
+  return "/";
+};
+
 export default function LoginForm({
   title,
   subtitle = "আপনার অনুমোদিত ইমেইল ও পাসওয়ার্ড দিয়ে প্রবেশ করুন",
@@ -28,7 +35,7 @@ export default function LoginForm({
   defaultEmail = "",
 }: LoginFormProps) {
   const [email, setEmail] = useState(defaultEmail);
-  const [password, setPassword] = useState("••••••••");
+  const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -52,25 +59,31 @@ export default function LoginForm({
         password,
       });
 
-      const accessToken = response.data.accessToken;
-      const role = response.data.user.role;
+      const accessToken = response?.data?.accessToken;
+      const role = response?.data?.user?.role;
 
-      setAuthCookies({
-        accessToken,
-        role,
-        remember,
-      });
-
-      if (role === "vendor") {
-        router.push("/vendor/dashboard");
-        return;
+      if (!accessToken || !role) {
+        throw new Error("লগইন রেসপন্স সঠিক নয়");
       }
 
-      router.push("/");
-    } catch (error) {
-      setErrorMessage(
-        error instanceof Error ? error.message : "লগইন ব্যর্থ হয়েছে"
-      );
+      setToken(accessToken);
+      setUserRole(role);
+
+      router.push(getDashboardPathByRole(role));
+    } catch (error: unknown) {
+      const message =
+        typeof error === "object" &&
+        error !== null &&
+        "response" in error &&
+        typeof (error as { response?: { data?: { message?: string } } })
+          .response?.data?.message === "string"
+          ? (error as { response?: { data?: { message?: string } } }).response!
+              .data!.message!
+          : error instanceof Error
+            ? error.message
+            : "লগইন ব্যর্থ হয়েছে";
+
+      setErrorMessage(message);
     } finally {
       setSubmitting(false);
     }
@@ -86,9 +99,7 @@ export default function LoginForm({
 
         <form onSubmit={handleSubmit} className="mt-10 space-y-6">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-black">
-              অফিস ইমেইল
-            </label>
+            <label className="text-sm font-medium text-black">অফিস ইমেইল</label>
             <div className="flex items-center gap-3 rounded-md border border-black/10 bg-off-white px-4 py-3 focus-within:border-primary-color">
               <Mail className="h-4 w-4 text-medium-gray" />
               <input
@@ -132,7 +143,7 @@ export default function LoginForm({
           ) : null}
 
           <div className="flex items-center justify-between gap-4">
-            <label className="select-none text-sm text-medium-gray flex items-center gap-2">
+            <label className="flex select-none items-center gap-2 text-sm text-medium-gray">
               <input
                 type="checkbox"
                 checked={remember}

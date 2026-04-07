@@ -1,22 +1,28 @@
-export type LoginRequest = {
-    email: string;
-    password: string;
-};
+export type UserRole = "admin" | "office" | "vendor";
 
-export type LoginUser = {
-    id: string;
-    email: string;
-    phone: string;
-    role: string;
-};
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
 
-export type LoginResponse = {
-    success: boolean;
-    statusCode: number;
-    data: {
-        accessToken: string;
-        user: LoginUser;
-    };
-    timestamp: string;
-    path: string;
-};
+export interface LoginUser {
+  id: string;
+  email: string;
+  phone: string;
+  role: UserRole;
+}
+
+export interface LoginResponseData {
+  accessToken: string;
+  user: LoginUser;
+}
+
+export interface ApiSuccessResponse<T> {
+  success: boolean;
+  statusCode: number;
+  data: T;
+  timestamp: string;
+  path: string;
+}
+
+export type LoginResponse = ApiSuccessResponse<LoginResponseData>;

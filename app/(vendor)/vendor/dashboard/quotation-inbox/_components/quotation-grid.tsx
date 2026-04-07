@@ -3,7 +3,7 @@
 import React from "react";
 import PaginationBar from "./quotation-pagination";
 import { getVendorQuotationInbox } from "@/service/vendor/quotation.service";
-import { getAccessTokenFromCookie } from "@/utils/auth-cookie";
+import { getAccessTokenFromCookie } from "@/utils/cookie.utils";
 
 export default function QuotationGrid() {
   const [loading, setLoading] = React.useState(true);
@@ -37,7 +37,7 @@ export default function QuotationGrid() {
         setItemsCount(response.data.data.length);
       } catch (error) {
         setError(
-          error instanceof Error ? error.message : "ডাটা লোড করা যায়নি"
+          error instanceof Error ? error.message : "ডাটা লোড করা যায়নি",
         );
       } finally {
         setLoading(false);

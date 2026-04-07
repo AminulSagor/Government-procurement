@@ -1,9 +1,9 @@
-import { apiClient } from "@/service/base/api-client";
-import type { LoginRequest, LoginResponse } from "@/types/auth/auth.types";
+import { serviceClient } from "@/service/base/axios.client";
+import { LoginRequest, LoginResponse } from "@/types/auth/auth.types";
 
-export async function loginUser(data: LoginRequest): Promise<LoginResponse> {
-    return apiClient<LoginResponse>("/login", {
-        method: "POST",
-        body: JSON.stringify(data),
-    });
-}
+export const loginUser = async (
+  payload: LoginRequest,
+): Promise<LoginResponse> => {
+  const response = await serviceClient.post<LoginResponse>("/login", payload);
+  return response.data;
+};
