@@ -4,4 +4,5 @@ export const IMAGE = {
   modify_sign: "/images/modify-sign.png",
   computer: "/images/pc.png",
   printer: "/images/printer.png",
+  logout: "/icons/logout-icon.png",
 } as const;
