@@ -11,16 +11,16 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import type { SidebarItems } from "@/types/navigation";
+import { logoutUser } from "@/utils/logout.utils";
+import { IMAGE } from "@/constants/image-path";
 
 export function AppSidebar({ items }: { items: SidebarItems[] }) {
   const pathname = usePathname();
-  const router = useRouter();
 
   /* ---------------- active url ---------------- */
-
   const activeUrl = React.useMemo(() => {
     const matches = items
       .filter(
@@ -33,19 +33,11 @@ export function AppSidebar({ items }: { items: SidebarItems[] }) {
   }, [items, pathname]);
 
   /* ---------------- logout ---------------- */
-
   const handleLogout = async () => {
-    try {
-      await fetch("/api/logout", { method: "POST" });
-    } catch {}
-
-    localStorage.removeItem("token");
-    localStorage.removeItem("refresh_token");
-    router.push("/login");
+    logoutUser();
   };
 
   /* ---------------- render icon ---------------- */
-
   const renderIcon = (icon: SidebarItems["icon"], title: string) => {
     if (!icon) return null;
 
@@ -60,7 +52,6 @@ export function AppSidebar({ items }: { items: SidebarItems[] }) {
   };
 
   /* ---------------- ui ---------------- */
-
   return (
     <Sidebar>
       <SidebarContent className="bg-white px-2">
@@ -134,14 +125,17 @@ export function AppSidebar({ items }: { items: SidebarItems[] }) {
 
               {/* Logout */}
               <SidebarMenuItem className="border rounded-sm">
-                <SidebarMenuButton asChild>
+                <SidebarMenuButton
+                  asChild
+                  className="px-2 py-2 rounded-sm hover:bg-transparent hover:text-inherit"
+                >
                   <button
                     type="button"
                     onClick={handleLogout}
-                    className="px-2 py-2 rounded-sm flex items-center gap-3 w-full hover:bg-primary-color hover:text-white"
+                    className="px-2 py-2 rounded-sm flex items-center gap-3 w-full hover:bg-primary-color cursor-pointer hover:text-red"
                   >
                     <Image
-                      src="/icons/logout-icon.png"
+                      src={IMAGE.logout}
                       alt="logout"
                       width={22}
                       height={22}
