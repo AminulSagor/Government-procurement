@@ -15,6 +15,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { SidebarItems } from "@/types/navigation";
+import { logoutUser } from "@/utils/logout.utils";
 
 export function VendorSidebar({ items }: { items: SidebarItems[] }) {
   const pathname = usePathname();
@@ -51,13 +52,7 @@ export function VendorSidebar({ items }: { items: SidebarItems[] }) {
   /* ---------------- logout ---------------- */
 
   const handleLogout = async () => {
-    try {
-      await fetch("/api/logout", { method: "POST" });
-    } catch {}
-
-    localStorage.removeItem("token");
-    localStorage.removeItem("refresh_token");
-    router.push("/login");
+    logoutUser();
   };
 
   /* ---------------- ui ---------------- */

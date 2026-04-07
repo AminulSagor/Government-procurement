@@ -1,5 +1,5 @@
 import { Sidebar, SidebarContent } from "@/components/ui/sidebar";
-import AdminSidebarItemRow from "./admin-sidebar-item";
+import AdminSidebarItemRow from "../../app/(admin)/admin/_components/admin-sidebar-item";
 import { SidebarItems } from "@/types/navigation";
 
 export function AdminSidebar({ items }: { items: SidebarItems[] }) {

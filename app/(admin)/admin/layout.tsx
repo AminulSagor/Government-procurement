@@ -1,5 +1,5 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { AdminSidebar } from "./_components/admin-sidebar";
+import { AdminSidebar } from "../../../components/sidebars/admin-sidebar";
 import AdminNavbar from "./_components/admin-navbar";
 import { adminSidebarItems } from "@/constants/navigation-links";
 

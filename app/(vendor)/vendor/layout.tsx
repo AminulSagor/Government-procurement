@@ -1,7 +1,6 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
 import Navbar from "./_components/navbar";
-import { VendorSidebar } from "./_components/vendor-sidebar";
-import "../../globals.css";
+import { VendorSidebar } from "../../../components/sidebars/vendor-sidebar";
 import { vendorSidebarItems } from "@/constants/navigation-links";
 
 export default function VendorLayout({
