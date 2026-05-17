@@ -2,8 +2,7 @@
 
 import React from "react";
 import PaginationBar from "./quotation-pagination";
-import { getVendorQuotationInbox } from "@/service/vendor/quotation.service";
-import { getAccessTokenFromCookie } from "@/utils/cookie.utils";
+import { getToken } from "@/utils/cookie.utils";
 
 export default function QuotationGrid() {
   const [loading, setLoading] = React.useState(true);
@@ -14,38 +13,38 @@ export default function QuotationGrid() {
   const [totalPages, setTotalPages] = React.useState(0);
   const [itemsCount, setItemsCount] = React.useState(0);
 
-  React.useEffect(() => {
-    const loadInbox = async () => {
-      try {
-        setLoading(true);
-        setError("");
+  // React.useEffect(() => {
+  //   const loadInbox = async () => {
+  //     try {
+  //       setLoading(true);
+  //       setError("");
 
-        const token = getAccessTokenFromCookie();
+  //       const token = getToken();
 
-        if (!token) {
-          throw new Error("লগইন টোকেন পাওয়া যায়নি");
-        }
+  //       if (!token) {
+  //         throw new Error("লগইন টোকেন পাওয়া যায়নি");
+  //       }
 
-        const response = await getVendorQuotationInbox({
-          token,
-          page,
-          limit,
-        });
+  //       const response = await getVendorQuotationInbox({
+  //         token,
+  //         page,
+  //         limit,
+  //       });
 
-        setTotal(response.data.total);
-        setTotalPages(response.data.totalPages);
-        setItemsCount(response.data.data.length);
-      } catch (error) {
-        setError(
-          error instanceof Error ? error.message : "ডাটা লোড করা যায়নি",
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
+  //       setTotal(response.data.total);
+  //       setTotalPages(response.data.totalPages);
+  //       setItemsCount(response.data.data.length);
+  //     } catch (error) {
+  //       setError(
+  //         error instanceof Error ? error.message : "ডাটা লোড করা যায়নি",
+  //       );
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    loadInbox();
-  }, [page, limit]);
+  //   loadInbox();
+  // }, [page, limit]);
 
   const from = total === 0 ? 0 : (page - 1) * limit + 1;
   const to = total === 0 ? 0 : Math.min(page * limit, total);
