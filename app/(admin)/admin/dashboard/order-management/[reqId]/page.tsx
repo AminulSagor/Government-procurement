@@ -4,10 +4,10 @@ import FlowShell from "@/app/(admin)/admin/dashboard/order-management/_component
 export default async function OrderDetailsPage({
   params,
 }: {
-  params: { reqId: string };
+  params: Promise<{ reqId: string }>;
 }) {
-  const param = await params;
-  const data = { ...REQ_CASE_MOCK, reqId: param.reqId };
+  const { reqId } = await params;
+  const data = { ...REQ_CASE_MOCK, reqId };
 
   return (
     <div className="space-y-6 p-6 bg-[#F8F9FA]">

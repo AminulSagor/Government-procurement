@@ -1,9 +1,14 @@
 import ProductDetailsShell from "./_components/product-details-shell";
 
 type Props = {
-  params: { vendorId: string; productId: string };
+  params: Promise<{
+    vendorId: string;
+    productId: string;
+  }>;
 };
 
-export default function VendorInventoryProductPage({ params }: Props) {
-  return <ProductDetailsShell vendorId={params.vendorId} productId={params.productId} />;
+export default async function VendorInventoryProductPage({ params }: Props) {
+  const { vendorId, productId } = await params;
+
+  return <ProductDetailsShell vendorId={vendorId} productId={productId} />;
 }

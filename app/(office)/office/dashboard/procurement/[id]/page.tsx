@@ -5,14 +5,17 @@ import { ProcurementCategories } from "@/app/(office)/office/dummy-data/procurem
 import ProcurementProductSection from "@/app/(office)/office/dashboard/procurement/_components/procurement-product-section";
 
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
+
 export default async function ProcurementDetailsPage({ params }: Props) {
-  const param = await params;
+  const { id } = await params;
+
   const category = ProcurementCategories.find(
-    (categories) => categories.id === param.id,
+    (categories) => categories.id === id,
   );
+
   const breadCrumb = [
     { label: "হোম", href: "/" },
     { label: "ক্রয়", href: "#" },
@@ -30,14 +33,9 @@ export default async function ProcurementDetailsPage({ params }: Props) {
 
   return (
     <div className="w-full space-y-5">
-      {/* Breadcrumb */}
       <Breadcrumb items={breadCrumb} />
-      {/* Title row */}
-      <ProductDetailsHead code={category?.code} />
-
-      {/*summary card */}
+      <ProductDetailsHead code={category.code} />
       <ProductSummaryCard category={category} />
-
       <ProcurementProductSection category={category} />
     </div>
   );

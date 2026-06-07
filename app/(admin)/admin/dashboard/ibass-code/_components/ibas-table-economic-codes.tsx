@@ -17,7 +17,15 @@ function typeChipClass(t: EconomicCodeItem["type"]) {
   return "bg-[rgba(120,185,181,0.18)] text-[var(--color-green)] border-[rgba(120,185,181,0.35)]";
 }
 
-export default function EconomicCodesTable({ rows }: { rows: EconomicCodeItem[] }) {
+export default function EconomicCodesTable({
+  rows,
+  onStatusChange,
+  onView,
+}: {
+  rows: EconomicCodeItem[];
+  onStatusChange: (code: string, status: boolean) => void;
+  onView: (row: EconomicCodeItem) => void;
+}) {
   return (
     <div className="rounded-xl border border-border bg-white">
       <div className="overflow-x-auto">
@@ -61,7 +69,10 @@ export default function EconomicCodesTable({ rows }: { rows: EconomicCodeItem[] 
                 </td>
 
                 <td className="px-5 py-4 text-center">
-                  <StatusToggle checked={r.status === "active"} />
+                  <StatusToggle
+                    checked={r.status === "active"}
+                    onChange={(checked) => onStatusChange(r.economicCode7, checked)}
+                  />
                 </td>
 
                 <td className="px-5 py-4">
@@ -69,7 +80,12 @@ export default function EconomicCodesTable({ rows }: { rows: EconomicCodeItem[] 
                     <button className="hover:text-black" type="button" aria-label="edit">
                       <Pencil className="h-4 w-4" />
                     </button>
-                    <button className="hover:text-black" type="button" aria-label="view">
+                    <button
+                      className="hover:text-black"
+                      type="button"
+                      aria-label="view"
+                      onClick={() => onView(r)}
+                    >
                       <Eye className="h-4 w-4" />
                     </button>
                   </div>

@@ -3,9 +3,11 @@
 import { useMemo, useState } from "react";
 import DialogShell from "./DialogShell";
 
-import { clampDigits, isExactDigits } from "../_utils/new-code.utils";
+import { clampDigits } from "../_utils/new-code.utils";
 import type { ParentCategory } from "../_types/new-code.types";
 import { Button } from "@/components/ui/button";
+import { validateParentCodeForm } from "@/schema/admin/code.schema";
+import type { ParentCodeFormValues } from "@/types/admin/code.types";
 
 export default function ParentCodeFormDialog({
   open,
@@ -22,14 +24,34 @@ export default function ParentCodeFormDialog({
   const [bn, setBn] = useState(initial?.expenseCategoryBangla ?? "");
   const [en, setEn] = useState(initial?.expenseCategoryEnglish ?? "");
   const [desc, setDesc] = useState(initial?.description ?? "");
+  const [isTouched, setIsTouched] = useState(false);
 
-  const canSubmit = useMemo(() => {
-    return (
-      isExactDigits(parentCode4, 4) &&
-      bn.trim().length > 0 &&
-      en.trim().length > 0
-    );
-  }, [parentCode4, bn, en]);
+  const formValues: ParentCodeFormValues = {
+    parentCode4,
+    expenseCategoryBangla: bn,
+    expenseCategoryEnglish: en,
+    details: desc,
+  };
+
+  const validation = useMemo(() => {
+    return validateParentCodeForm(formValues);
+  }, [parentCode4, bn, en, desc]);
+
+  const canSubmit = validation.isValid;
+
+  const handleSubmit = () => {
+    setIsTouched(true);
+
+    if (!validation.isValid) return;
+
+    onSubmit({
+      parentCode4: clampDigits(parentCode4, 4),
+      expenseCategoryBangla: bn.trim(),
+      expenseCategoryEnglish: en.trim(),
+      description: desc.trim() || undefined,
+      isActive: true,
+    });
+  };
 
   return (
     <DialogShell
@@ -37,35 +59,34 @@ export default function ParentCodeFormDialog({
       onClose={onClose}
       title="নতুন প্যারেন্ট কোড / ক্যাটাগরি যুক্ত করুন"
       footer={
-        <div className="flex items-center justify-center gap-5">
-          <button
-            type="button"
-            onClick={onClose}
-            className="h-12 rounded-xl border border-gray/15 bg-white px-10 text-sm font-semibold text-[var(--color-black)] hover:bg-[var(--color-off-white)]"
-          >
-            বাতিল করুন
-          </button>
+        <div className="flex flex-col items-center gap-3">
+          {isTouched && validation.message ? (
+            <p className="text-sm font-medium text-[var(--color-red)]">
+              {validation.message}
+            </p>
+          ) : null}
 
-          <Button
-            className="h-12 px-10"
-            disabled={!canSubmit}
-            onClick={() =>
-              onSubmit({
-                parentCode4: clampDigits(parentCode4, 4),
-                expenseCategoryBangla: bn.trim(),
-                expenseCategoryEnglish: en.trim(),
-                description: desc.trim() || undefined,
-                isActive: true,
-              })
-            }
-          >
-            কোড সংরক্ষণ করুন
-          </Button>
+          <div className="flex items-center justify-center gap-5">
+            <button
+              type="button"
+              onClick={onClose}
+              className="h-12 rounded-xl border border-gray/15 bg-white px-10 text-sm font-semibold text-[var(--color-black)] hover:bg-[var(--color-off-white)]"
+            >
+              বাতিল করুন
+            </button>
+
+            <Button
+              className="h-12 px-10"
+              disabled={!canSubmit}
+              onClick={handleSubmit}
+            >
+              কোড সংরক্ষণ করুন
+            </Button>
+          </div>
         </div>
       }
     >
       <div className="space-y-6">
-        {/* Parent code */}
         <div className="space-y-2">
           <label className="text-sm font-semibold text-[var(--color-black)]">
             প্যারেন্ট কোড (৪-ডিজিট){" "}
@@ -75,7 +96,11 @@ export default function ParentCodeFormDialog({
           <div className="relative">
             <input
               value={parentCode4}
-              onChange={(e) => setParentCode4(clampDigits(e.target.value, 4))}
+              onChange={(e) => {
+                setParentCode4(clampDigits(e.target.value, 4));
+                setIsTouched(true);
+              }}
+              onBlur={() => setIsTouched(true)}
               placeholder="e.g. 3255"
               className={[
                 "h-12 w-full rounded-xl bg-white px-4 text-sm outline-none",
@@ -94,7 +119,6 @@ export default function ParentCodeFormDialog({
           </p>
         </div>
 
-        {/* Section header line */}
         <div className="pt-2">
           <div className="flex items-center gap-4">
             <p className="text-sm font-bold text-[var(--color-black)]">
@@ -104,7 +128,6 @@ export default function ParentCodeFormDialog({
           </div>
         </div>
 
-        {/* Two inputs */}
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <div className="space-y-2">
             <label className="text-sm font-semibold text-[var(--color-black)]">
@@ -114,7 +137,11 @@ export default function ParentCodeFormDialog({
 
             <input
               value={bn}
-              onChange={(e) => setBn(e.target.value)}
+              onChange={(e) => {
+                setBn(e.target.value);
+                setIsTouched(true);
+              }}
+              onBlur={() => setIsTouched(true)}
               placeholder="যেমন: মনিহারী"
               className={[
                 "h-12 w-full rounded-xl bg-white px-4 text-sm outline-none",
@@ -132,7 +159,11 @@ export default function ParentCodeFormDialog({
 
             <input
               value={en}
-              onChange={(e) => setEn(e.target.value)}
+              onChange={(e) => {
+                setEn(e.target.value);
+                setIsTouched(true);
+              }}
+              onBlur={() => setIsTouched(true)}
               placeholder="e.g. Stationery"
               className={[
                 "h-12 w-full rounded-xl bg-white px-4 text-sm outline-none",
@@ -143,7 +174,6 @@ export default function ParentCodeFormDialog({
           </div>
         </div>
 
-        {/* Description */}
         <div className="space-y-2">
           <label className="text-sm font-semibold text-[var(--color-black)]">
             বিবরণ

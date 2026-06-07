@@ -48,7 +48,7 @@ export default function LoginForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    onSubmit?.({ email, password, remember });
+    if (submitting || isLoading) return;
 
     setSubmitting(true);
     setErrorMessage("");
@@ -71,17 +71,20 @@ export default function LoginForm({
 
       router.push(getDashboardPathByRole(role));
     } catch (error: unknown) {
-      const message =
+      let message = "লগইন ব্যর্থ হয়েছে";
+
+      if (
         typeof error === "object" &&
         error !== null &&
         "response" in error &&
-        typeof (error as { response?: { data?: { message?: string } } })
-          .response?.data?.message === "string"
-          ? (error as { response?: { data?: { message?: string } } }).response!
-              .data!.message!
-          : error instanceof Error
-            ? error.message
-            : "লগইন ব্যর্থ হয়েছে";
+        typeof (error as { response?: { data?: { message?: string } } }).response
+          ?.data?.message === "string"
+      ) {
+        message = (error as { response: { data: { message: string } } }).response
+          .data.message;
+      } else if (error instanceof Error) {
+        message = error.message;
+      }
 
       setErrorMessage(message);
     } finally {
@@ -144,13 +147,7 @@ export default function LoginForm({
 
           <div className="flex items-center justify-between gap-4">
             <label className="flex select-none items-center gap-2 text-sm text-medium-gray">
-              <input
-                type="checkbox"
-                checked={remember}
-                onChange={(e) => setRemember(e.target.checked)}
-                className="h-4 w-4 rounded border-black/20 accent-primary-color"
-              />
-              মনে রাখুন
+
             </label>
 
             <Link

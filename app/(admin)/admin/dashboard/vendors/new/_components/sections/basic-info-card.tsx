@@ -34,25 +34,16 @@ export default function BasicInfoCard({ values, onChange }: Props) {
           />
         </Field>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <Field label="মোবাইল নম্বর">
-            <input
-              value={values.phone}
-              onChange={(e) => onChange({ phone: e.target.value })}
-              placeholder="০১XXXXXXXXX"
-              className="h-11 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm outline-none focus:ring-4 focus:ring-sky-100"
-            />
-          </Field>
+        <Field label="মোবাইল নম্বর">
+          <input
+            value={values.phone}
+            onChange={(e) => onChange({ phone: e.target.value })}
+            placeholder="০১XXXXXXXXX"
+            className="h-11 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm outline-none focus:ring-4 focus:ring-sky-100"
+          />
+        </Field>
 
-          <Field label="ইমেইল">
-            <input
-              value={values.email}
-              onChange={(e) => onChange({ email: e.target.value })}
-              placeholder="example@mail.com"
-              className="h-11 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm outline-none focus:ring-4 focus:ring-sky-100"
-            />
-          </Field>
-        </div>
+
       </div>
     </FormCard>
   );

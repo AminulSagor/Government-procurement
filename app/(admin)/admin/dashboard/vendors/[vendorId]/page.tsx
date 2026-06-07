@@ -1,9 +1,11 @@
 import VendorDetailsShell from "./_components/vendor-details-shell";
 
 type Props = {
-  params: { vendorId: string };
+  params: Promise<{ vendorId: string }>;
 };
 
-export default function VendorDetailsPage({ params }: Props) {
-  return <VendorDetailsShell vendorId={params.vendorId} />;
+export default async function VendorDetailsPage({ params }: Props) {
+  const { vendorId } = await params;
+
+  return <VendorDetailsShell vendorId={vendorId} />;
 }

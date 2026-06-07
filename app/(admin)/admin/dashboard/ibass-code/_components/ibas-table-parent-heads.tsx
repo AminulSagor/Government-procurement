@@ -6,7 +6,15 @@ import Pill from "./pill";
 import StatusToggle from "./status-toggle";
 
 
-export default function ParentHeadsTable({ rows }: { rows: ParentHeadItem[] }) {
+export default function ParentHeadsTable({
+  rows,
+  onStatusChange,
+  onView,
+}: {
+  rows: ParentHeadItem[];
+  onStatusChange: (code: string, status: boolean) => void;
+  onView: (row: ParentHeadItem) => void;
+}) {
   return (
     <div className="rounded-xl border border-border bg-white">
       <div className="overflow-x-auto">
@@ -37,7 +45,10 @@ export default function ParentHeadsTable({ rows }: { rows: ParentHeadItem[] }) {
                 </td>
 
                 <td className="px-5 py-4 text-center">
-                  <StatusToggle checked={r.status === "active"} />
+                  <StatusToggle
+                    checked={r.status === "active"}
+                    onChange={(checked) => onStatusChange(r.parentCode4, checked)}
+                  />
                 </td>
 
                 <td className="px-5 py-4">
@@ -45,7 +56,12 @@ export default function ParentHeadsTable({ rows }: { rows: ParentHeadItem[] }) {
                     <button className="hover:text-black" type="button" aria-label="edit">
                       <Pencil className="h-4 w-4" />
                     </button>
-                    <button className="hover:text-black" type="button" aria-label="view">
+                    <button
+                      className="hover:text-black"
+                      type="button"
+                      aria-label="view"
+                      onClick={() => onView(r)}
+                    >
                       <Eye className="h-4 w-4" />
                     </button>
                   </div>

@@ -49,7 +49,7 @@ export default function IbasFiltersBar({
     <div className="rounded-xl border border-border bg-white p-4">
       <div className="grid grid-cols-12 items-end gap-4">
         {/* SEARCH */}
-        <div className={`col-span-12 ${isParent ? "lg:col-span-8" : "lg:col-span-8"}`}>
+        <div className={`col-span-12 ${isParent ? "lg:col-span-10" : "lg:col-span-8"}`}>
           <p className="mb-2 text-[11px] font-bold tracking-wide text-[var(--color-medium-gray)]">
             SEARCH CODE OR NAME
           </p>
@@ -90,7 +90,7 @@ export default function IbasFiltersBar({
         )}
 
         {/* STATUS */}
-        <div className={`col-span-12 ${isParent ? "lg:col-span-2" : "lg:col-span-1"}`}>
+        <div className={`col-span-12 ${isParent ? "lg:col-span-2" : "lg:col-span-2"}`}>
           <p className="mb-2 text-[11px] font-bold tracking-wide text-[var(--color-medium-gray)]">
             STATUS
           </p>
@@ -104,22 +104,7 @@ export default function IbasFiltersBar({
           />
         </div>
 
-        {/* FILTER BUTTON (same row right) */}
-        <div className={`col-span-12 ${isParent ? "lg:col-span-2" : "lg:col-span-1"} relative`}>
-          <button
-            type="button"
-            onClick={() => setOpen((s) => !s)}
-            className="inline-flex h-11 w-full  items-center justify-center gap-2 rounded-lg border border-[var(--color-light-gray)]/40 bg-white px-4 text-sm font-semibold text-black hover:bg-[var(--color-off-white)]"
-          >
-            <SlidersHorizontal className="h-4 w-4" />
-            Filter
-          </button>
 
-          {/* Popover aligned to the button */}
-          <div className="absolute right-0 top-[46px] z-20">
-            <IbasFilterPopover open={open} onClose={() => setOpen(false)} />
-          </div>
-        </div>
       </div>
     </div>
   );

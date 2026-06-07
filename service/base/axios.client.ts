@@ -23,20 +23,36 @@ serviceClient.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-//Response interceptor
+// Response interceptor
 serviceClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    const status = error.response?.status;
+    const requestUrl = error.config?.url || "";
+
+    const isLoginRequest = requestUrl.includes("/login");
+    const isAuthPage =
+      typeof window !== "undefined" &&
+      window.location.pathname.startsWith("/auth");
+
+    if (status === 401 && !isLoginRequest && !isAuthPage) {
       const role = getUserRole();
 
       clearAuthCookies();
 
       if (typeof window !== "undefined") {
+        const pathname = window.location.pathname;
+
         if (role) {
           window.location.href = `/auth/${role}/login`;
+        } else if (pathname.startsWith("/admin")) {
+          window.location.href = "/auth/admin/login";
+        } else if (pathname.startsWith("/office")) {
+          window.location.href = "/auth/office/login";
+        } else if (pathname.startsWith("/vendor")) {
+          window.location.href = "/auth/vendor/login";
         } else {
-          window.location.href = `/auth/office/login`; // fallback
+          window.location.href = "/auth/admin/login";
         }
       }
     }
