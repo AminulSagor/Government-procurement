@@ -21,10 +21,12 @@ export default function EconomicCodesTable({
   rows,
   onStatusChange,
   onView,
+  onEdit,
 }: {
   rows: EconomicCodeItem[];
   onStatusChange: (code: string, status: boolean) => void;
   onView: (row: EconomicCodeItem) => void;
+  onEdit: (row: EconomicCodeItem) => void;
 }) {
   return (
     <div className="rounded-xl border border-border bg-white">
@@ -77,7 +79,12 @@ export default function EconomicCodesTable({
 
                 <td className="px-5 py-4">
                   <div className="flex items-center justify-center gap-4 text-[var(--color-medium-gray)]">
-                    <button className="hover:text-black" type="button" aria-label="edit">
+                    <button
+                      className="hover:text-black"
+                      type="button"
+                      aria-label="edit"
+                      onClick={() => onEdit(r)}
+                    >
                       <Pencil className="h-4 w-4" />
                     </button>
                     <button

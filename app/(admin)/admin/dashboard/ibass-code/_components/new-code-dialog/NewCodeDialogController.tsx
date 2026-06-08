@@ -232,7 +232,7 @@ export default function NewCodeDialogController({
               ]
               : []
           }
-          primaryText="ক্যাটাগরি তালিকা দেখুন"
+          primaryText="ক্যাটাগরি বিবরণ দেখুন"
           secondaryText="আরেকটি প্যারেন্ট কোড যুক্ত করুন"
           onPrimary={() => setStep("parent_details")}
           onSecondary={() => {
@@ -265,7 +265,7 @@ export default function NewCodeDialogController({
               ]
               : []
           }
-          primaryText="কোড তালিকা দেখুন"
+          primaryText="কোড বিবরণ দেখুন"
           secondaryText="আরেকটি নতুন কোড যুক্ত করুন"
           onPrimary={() => setStep("econ_details")}
           onSecondary={() => {

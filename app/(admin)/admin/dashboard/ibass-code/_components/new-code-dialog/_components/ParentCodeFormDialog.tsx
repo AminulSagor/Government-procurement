@@ -14,12 +14,16 @@ export default function ParentCodeFormDialog({
   onClose,
   onSubmit,
   initial,
+  mode = "create",
 }: {
   open: boolean;
   onClose: () => void;
   onSubmit: (v: ParentCategory) => void;
   initial?: Partial<ParentCategory>;
+  mode?: "create" | "edit";
 }) {
+  const isEditMode = mode === "edit";
+
   const [parentCode4, setParentCode4] = useState(initial?.parentCode4 ?? "");
   const [bn, setBn] = useState(initial?.expenseCategoryBangla ?? "");
   const [en, setEn] = useState(initial?.expenseCategoryEnglish ?? "");
@@ -49,7 +53,7 @@ export default function ParentCodeFormDialog({
       expenseCategoryBangla: bn.trim(),
       expenseCategoryEnglish: en.trim(),
       description: desc.trim() || undefined,
-      isActive: true,
+      isActive: initial?.isActive ?? true,
     });
   };
 
@@ -57,7 +61,11 @@ export default function ParentCodeFormDialog({
     <DialogShell
       open={open}
       onClose={onClose}
-      title="নতুন প্যারেন্ট কোড / ক্যাটাগরি যুক্ত করুন"
+      title={
+        isEditMode
+          ? "প্যারেন্ট কোড সম্পাদনা করুন"
+          : "নতুন প্যারেন্ট কোড / ক্যাটাগরি যুক্ত করুন"
+      }
       footer={
         <div className="flex flex-col items-center gap-3">
           {isTouched && validation.message ? (
@@ -80,7 +88,7 @@ export default function ParentCodeFormDialog({
               disabled={!canSubmit}
               onClick={handleSubmit}
             >
-              কোড সংরক্ষণ করুন
+              {isEditMode ? "পরিবর্তন সংরক্ষণ করুন" : "কোড সংরক্ষণ করুন"}
             </Button>
           </div>
         </div>
@@ -96,6 +104,7 @@ export default function ParentCodeFormDialog({
           <div className="relative">
             <input
               value={parentCode4}
+              disabled={isEditMode}
               onChange={(e) => {
                 setParentCode4(clampDigits(e.target.value, 4));
                 setIsTouched(true);
@@ -106,6 +115,9 @@ export default function ParentCodeFormDialog({
                 "h-12 w-full rounded-xl bg-white px-4 text-sm outline-none",
                 "border border-gray/15",
                 "focus:border-[var(--color-primary-color)]",
+                isEditMode
+                  ? "cursor-not-allowed bg-[var(--color-off-white)] text-[var(--color-medium-gray)]"
+                  : "",
               ].join(" ")}
             />
 
@@ -115,7 +127,9 @@ export default function ParentCodeFormDialog({
           </div>
 
           <p className="text-xs text-[var(--color-light-gray)]">
-            ৪ সংখ্যার কোডের প্যারেন্ট লেভেল (Category)
+            {isEditMode
+              ? "প্যারেন্ট কোড পরিবর্তন করা যাবে না"
+              : "৪ সংখ্যার কোডের প্যারেন্ট লেভেল (Category)"}
           </p>
         </div>
 

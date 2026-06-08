@@ -117,3 +117,16 @@ export type OperationalCodesResponse = {
   timestamp: string;
   path: string;
 };
+
+export type UpdateParentCodePayload = {
+  expenseCategoryBangla: string;
+  expenseCategoryEnglish: string;
+  details: string;
+};
+
+export type UpdateOperationalCodePayload = {
+  codeNameBangla: string;
+  codeNameEnglish: string;
+  operationalCodeType: OperationalCodeType;
+  details: string;
+};

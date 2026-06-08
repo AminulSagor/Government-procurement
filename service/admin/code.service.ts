@@ -9,6 +9,8 @@ import type {
   ParentCodeCreatePayload,
   ParentCodeListItem,
   ParentCodesResponse,
+  UpdateOperationalCodePayload,
+  UpdateParentCodePayload,
 } from "@/types/admin/code.types";
 
 export const createParentCode = async (
@@ -79,4 +81,58 @@ export const getOperationalCodes = async (
   });
 
   return response.data.data.data;
+};
+
+export const updateParentCode = async (
+  code: string,
+  payload: UpdateParentCodePayload,
+) => {
+  const response = await serviceClient.patch(`/codes/${code}`, payload);
+  return response.data;
+};
+
+export const updateOperationalCode = async (
+  code: string,
+  payload: UpdateOperationalCodePayload,
+) => {
+  const response = await serviceClient.patch(`/codes/${code}`, payload);
+  return response.data;
+};
+
+export const getParentCodesWithMeta = async (params?: GetParentCodesParams) => {
+  const response = await serviceClient.get<ParentCodesResponse>("/codes", {
+    params: {
+      type: "parent",
+      page: params?.page ?? 1,
+      limit: params?.limit ?? 100,
+      status:
+        typeof params?.status === "boolean" ? String(params.status) : undefined,
+      search: params?.search?.trim() || undefined,
+      FilterCode: params?.filterCode || undefined,
+    },
+  });
+
+  return response.data.data;
+};
+
+export const getOperationalCodesWithMeta = async (
+  params?: GetOperationalCodesParams,
+) => {
+  const response = await serviceClient.get<OperationalCodesResponse>("/codes", {
+    params: {
+      type: "operational",
+      page: params?.page ?? 1,
+      limit: params?.limit ?? 100,
+      status:
+        typeof params?.status === "boolean" ? String(params.status) : undefined,
+      search: params?.search?.trim() || undefined,
+      operationalTypeFilter:
+        params?.operationalTypeFilter && params.operationalTypeFilter !== "all"
+          ? params.operationalTypeFilter
+          : undefined,
+      FilterCode: params?.filterCode || undefined,
+    },
+  });
+
+  return response.data.data;
 };

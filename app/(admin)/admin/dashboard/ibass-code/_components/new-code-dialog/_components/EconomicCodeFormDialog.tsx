@@ -66,21 +66,33 @@ export default function EconomicCodeFormDialog({
   onSubmit,
   parentOptions,
   onSearchParent,
+  initial,
+  mode = "create",
 }: {
   open: boolean;
   onClose: () => void;
   onSubmit: (v: EconomicCode) => void;
   parentOptions: ParentCategory[];
   onSearchParent: (search?: string) => void;
+  initial?: Partial<EconomicCode>;
+  mode?: "create" | "edit";
 }) {
-  const [economicCode7, setEconomicCode7] = useState("");
-  const [nameBn, setNameBn] = useState("");
-  const [nameEn, setNameEn] = useState("");
-  const [parentCode4, setParentCode4] = useState("");
-  const [parentSearch, setParentSearch] = useState("");
+  const isEditMode = mode === "edit";
+
+  const [economicCode7, setEconomicCode7] = useState(
+    initial?.economicCode7 ?? "",
+  );
+  const [nameBn, setNameBn] = useState(initial?.codeNameBangla ?? "");
+  const [nameEn, setNameEn] = useState(initial?.codeNameEnglish ?? "");
+  const [parentCode4, setParentCode4] = useState(initial?.parentCode4 ?? "");
+  const [parentSearch, setParentSearch] = useState(
+    initial?.parentCode4 ?? "",
+  );
   const [isParentDropdownOpen, setIsParentDropdownOpen] = useState(false);
-  const [econType, setEconType] = useState<EconomicCodeType>("PRODUCT");
-  const [desc, setDesc] = useState("");
+  const [econType, setEconType] = useState<EconomicCodeType>(
+    initial?.econType ?? "PRODUCT",
+  );
+  const [desc, setDesc] = useState(initial?.description ?? "");
   const [isTouched, setIsTouched] = useState(false);
 
   const formValues: OperationalCodeFormValues = {
@@ -110,7 +122,7 @@ export default function EconomicCodeFormDialog({
       parentCode4: clampDigits(parentCode4, 4),
       econType,
       description: desc.trim() || undefined,
-      isActive: true,
+      isActive: initial?.isActive ?? true,
     });
   };
 
@@ -118,7 +130,11 @@ export default function EconomicCodeFormDialog({
     <DialogShell
       open={open}
       onClose={onClose}
-      title="নতুন অর্থনৈতিক কোড যুক্ত করুন"
+      title={
+        isEditMode
+          ? "অর্থনৈতিক কোড সম্পাদনা করুন"
+          : "নতুন অর্থনৈতিক কোড যুক্ত করুন"
+      }
       footer={
         <div className="flex flex-col items-center gap-3">
           {isTouched && validation.message ? (
@@ -141,7 +157,7 @@ export default function EconomicCodeFormDialog({
               disabled={!canSubmit}
               onClick={handleSubmit}
             >
-              কোড সংরক্ষণ করুন
+              {isEditMode ? "পরিবর্তন সংরক্ষণ করুন" : "কোড সংরক্ষণ করুন"}
             </Button>
           </div>
         </div>
@@ -156,6 +172,7 @@ export default function EconomicCodeFormDialog({
           <div className="relative">
             <input
               value={economicCode7}
+              disabled={isEditMode}
               onChange={(e) => {
                 setEconomicCode7(clampDigits(e.target.value, 7));
                 setIsTouched(true);
@@ -166,6 +183,9 @@ export default function EconomicCodeFormDialog({
                 "h-12 w-full rounded-xl bg-white px-4 text-sm outline-none",
                 "border border-gray/15",
                 "focus:border-[var(--color-primary-color)]",
+                isEditMode
+                  ? "cursor-not-allowed bg-[var(--color-off-white)] text-[var(--color-medium-gray)]"
+                  : "",
               ].join(" ")}
             />
 
@@ -175,7 +195,9 @@ export default function EconomicCodeFormDialog({
           </div>
 
           <p className="text-xs text-[var(--color-light-gray)]">
-            ১০ সংখ্যার কোডের শেষ ৩ সংখ্যা (অপারেশনাল কোড)
+            {isEditMode
+              ? "অর্থনৈতিক কোড পরিবর্তন করা যাবে না"
+              : "১০ সংখ্যার কোডের শেষ ৩ সংখ্যা (অপারেশনাল কোড)"}
           </p>
         </div>
 
@@ -232,8 +254,15 @@ export default function EconomicCodeFormDialog({
           <div className="relative">
             <input
               value={parentSearch}
-              onFocus={() => setIsParentDropdownOpen(true)}
+              disabled={isEditMode}
+              onFocus={() => {
+                if (!isEditMode) {
+                  setIsParentDropdownOpen(true);
+                }
+              }}
               onChange={(e) => {
+                if (isEditMode) return;
+
                 const value = e.target.value;
 
                 setParentSearch(value);
@@ -247,6 +276,9 @@ export default function EconomicCodeFormDialog({
                 "h-12 w-full rounded-xl bg-white px-4 pr-10 text-sm outline-none",
                 "border border-gray/15",
                 "focus:border-[var(--color-primary-color)]",
+                isEditMode
+                  ? "cursor-not-allowed bg-[var(--color-off-white)] text-[var(--color-medium-gray)]"
+                  : "",
               ].join(" ")}
             />
 
@@ -254,7 +286,7 @@ export default function EconomicCodeFormDialog({
               ▼
             </span>
 
-            {isParentDropdownOpen ? (
+            {!isEditMode && isParentDropdownOpen ? (
               <div className="absolute left-0 right-0 top-[52px] z-50 max-h-56 overflow-y-auto rounded-xl border border-gray/15 bg-white shadow-lg">
                 {parentOptions.length > 0 ? (
                   parentOptions.map((p) => (
@@ -263,7 +295,9 @@ export default function EconomicCodeFormDialog({
                       type="button"
                       onClick={() => {
                         setParentCode4(p.parentCode4);
-                        setParentSearch(`${p.parentCode4} - ${p.expenseCategoryBangla}`);
+                        setParentSearch(
+                          `${p.parentCode4} - ${p.expenseCategoryBangla}`,
+                        );
                         setIsParentDropdownOpen(false);
                         setIsTouched(true);
                       }}
@@ -281,6 +315,12 @@ export default function EconomicCodeFormDialog({
               </div>
             ) : null}
           </div>
+
+          {isEditMode ? (
+            <p className="text-xs text-[var(--color-light-gray)]">
+              প্যারেন্ট কোড পরিবর্তন করা যাবে না
+            </p>
+          ) : null}
         </div>
 
         <div className="space-y-3">
