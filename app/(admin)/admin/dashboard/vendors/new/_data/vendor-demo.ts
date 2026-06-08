@@ -18,5 +18,5 @@ export const vendorCreateDefaults: VendorCreateValues = {
     nid: null,
   },
 
-  categoryCodes: ["03565001", "03565009"], // demo selected tags
+  categoryCodes: [], // demo selected tags
 };
